@@ -4,8 +4,8 @@ import langton.helpers.Direction;
 import langton.helpers.Point;
 
 /**
- * Diese Klasse beinhaltet alle Informationen einer einzelnen Ameise auf dem Feld.
- * Sie stellt Methoden zur Verfügung, um die Ameise auf dem Feld herumzubewegen.
+ * @author Gerome Wiss
+ * @version 0.1
  *
  * This class holds all information about a single ant on the field.
  * It provides methods to move the ant around and to change the direction it's facing.
