@@ -5,7 +5,7 @@ import langton.helpers.Point;
 
 /**
  * @author Gerome Wiss
- * @version 0.1
+ * @version 13_02_2019
  *
  * This class holds all information about a single ant on the field.
  * It provides methods to move the ant around and to change the direction it's facing.

@@ -1,7 +1,11 @@
 package langton.helpers;
 
 /**
+ * @author Gerome Wiss
+ * @version 13_02_2019
+ *
  * This helper-class holds two values to display a Point in a coordinate system.
+ * @see langton.data.Ant
  */
 public class Point {
     private int x, y;
