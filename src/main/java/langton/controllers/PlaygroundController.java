@@ -1,5 +1,6 @@
 package langton.controllers;
 
+import langton.data.Map;
 import langton.views.Playground;
 
 /**
@@ -7,13 +8,22 @@ import langton.views.Playground;
  * @version 14_02_2019
  *
  * This class controls all changes that happen on the corresponding playground object.
+ * It handles inputs from the user and changes the view according to the changes in the data.
  */
 public class PlaygroundController {
     private Playground playground;
+    private Map map;
 
     public PlaygroundController(double width, double height, int rows, int columns) {
+        this.map = new Map(50, 50);
         this.playground = new Playground(width, height);
-        this.playground.drawGrid(rows, columns);
+        this.playground.drawGrid(map.getRowsCount(), map.getColumnsCount());
+    }
+
+    public PlaygroundController(double width, double height, Map map) {
+        this.map = map;
+        this.playground = new Playground(width, height);
+        this.playground.drawGrid(map.getRowsCount(), map.getColumnsCount());
     }
 
     public void viewDidLoad(double width, double height, int rows, int columns) {

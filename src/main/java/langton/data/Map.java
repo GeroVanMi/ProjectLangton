@@ -6,8 +6,8 @@ public class Map {
 
     private Field[][] fields;
 
-    public Map() {
-        fields = new Field[50][50];
+    public Map(int rows, int columns) {
+        fields = new Field[rows][columns];
     }
 
     public void increaseMapSize(int amountX, int amountY) {
@@ -28,6 +28,14 @@ public class Map {
 
     public Field[][] getFields() {
         return fields;
+    }
+
+    public int getRowsCount() {
+        return fields.length;
+    }
+
+    public int getColumnsCount() {
+        return fields[0].length;
     }
 
     public void setFields(Field[][] fields) {
