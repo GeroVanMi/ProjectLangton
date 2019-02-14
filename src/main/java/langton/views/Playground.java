@@ -5,6 +5,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 
 public class Playground {
     private Scene scene;
@@ -28,7 +29,9 @@ public class Playground {
         double height = canvas.getHeight() / rows;
         for(int i = 0; i < rows; i++) {
             for(int j = 0; j < columns; j++) {
+                graphicsContext.setFill(new Color(0.2, 0.2, 0.2, 1));
                 graphicsContext.fillRect(i * width, j * height, width, height);
+                graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 1));
                 graphicsContext.strokeRect(i * width, j * height, width, height);
             }
         }
