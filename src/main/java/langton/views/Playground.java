@@ -22,4 +22,15 @@ public class Playground {
 
         scene = new Scene(pane);
     }
+
+    public void drawGrid(int rows, int columns) {
+        double width = canvas.getWidth() / columns;
+        double height = canvas.getHeight() / rows;
+        for(int i = 0; i < rows; i++) {
+            for(int j = 0; j < columns; j++) {
+                graphicsContext.fillRect(i * width, j * height, width, height);
+                graphicsContext.strokeRect(i * width, j * height, width, height);
+            }
+        }
+    }
 }
