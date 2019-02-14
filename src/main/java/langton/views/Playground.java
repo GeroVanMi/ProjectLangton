@@ -37,6 +37,11 @@ public class Playground {
         }
     }
 
+    public void updateCanvasSize(double width, double height) {
+        canvas.setWidth(width);
+        canvas.setHeight(height);
+    }
+
     public Scene getScene() {
         return scene;
     }
