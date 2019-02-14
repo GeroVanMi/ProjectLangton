@@ -22,6 +22,6 @@ public class Main extends Application {
             System.exit(0);
         });
         primaryStage.show();
-        playgroundController.viewDidLoad(primaryStage.getWidth(), primaryStage.getHeight(), 10, 10);
+        playgroundController.viewDidLoad(primaryStage.getWidth(), primaryStage.getHeight());
     }
 }
