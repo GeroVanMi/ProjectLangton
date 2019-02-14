@@ -4,6 +4,13 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import langton.controllers.PlaygroundController;
 
+
+/**
+ * @author Gerome Wiss
+ * @version 14_02_2019
+ *
+ * This class is called when a user starts the application. It acts as an initiator for many values.
+ */
 public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception {
