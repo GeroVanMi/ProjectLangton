@@ -5,8 +5,8 @@ import langton.views.Playground;
 public class PlaygroundController {
     private Playground playground;
 
-    public PlaygroundController() {
-        this.playground = new Playground(1000, 1000);
+    public PlaygroundController(double width, double height) {
+        this.playground = new Playground(width, height);
         this.playground.drawGrid(10, 10);
     }
 

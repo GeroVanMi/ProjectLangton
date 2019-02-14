@@ -7,11 +7,13 @@ import langton.controllers.PlaygroundController;
 public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception {
-        PlaygroundController playgroundController = new PlaygroundController();
+        primaryStage.setMaximized(true);
+        PlaygroundController playgroundController = new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight());
         primaryStage.setScene(playgroundController.getPlayground().getScene());
         primaryStage.setOnCloseRequest(e -> {
             System.exit(0);
         });
         primaryStage.show();
+
     }
 }
