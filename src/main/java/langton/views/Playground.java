@@ -12,8 +12,8 @@ public class Playground {
     private Canvas canvas;
     private GraphicsContext graphicsContext;
 
-    public Playground() {
-        canvas = new Canvas(1000, 900);
+    public Playground(double width, double height) {
+        canvas = new Canvas(width, height);
         graphicsContext = canvas.getGraphicsContext2D();
         pane = new BorderPane(canvas);
 
@@ -32,5 +32,9 @@ public class Playground {
                 graphicsContext.strokeRect(i * width, j * height, width, height);
             }
         }
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 }
