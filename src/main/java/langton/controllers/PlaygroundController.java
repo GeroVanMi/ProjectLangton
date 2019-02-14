@@ -1,5 +1,6 @@
 package langton.controllers;
 
+import com.sun.istack.internal.NotNull;
 import langton.data.Map;
 import langton.views.Playground;
 
@@ -15,7 +16,7 @@ public class PlaygroundController {
     private Map map;
 
     public PlaygroundController(double width, double height, int rows, int columns) {
-        this.map = new Map(50, 50);
+        this.map = new Map(rows, columns);
         this.playground = new Playground(width, height);
         this.playground.drawGrid(map.getRowsCount(), map.getColumnsCount());
     }
@@ -26,9 +27,9 @@ public class PlaygroundController {
         this.playground.drawGrid(map.getRowsCount(), map.getColumnsCount());
     }
 
-    public void viewDidLoad(double width, double height, int rows, int columns) {
+    public void viewDidLoad(double width, double height) {
         playground.updateCanvasSize(width, height);
-        playground.drawGrid(rows, columns);
+        playground.drawGrid(map.getRowsCount(), map.getColumnsCount());
     }
 
     public Playground getPlayground() {

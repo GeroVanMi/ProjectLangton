@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setMaximized(true);
         PlaygroundController playgroundController =
-                new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), 10, 10);
+                new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), 50, 50);
         primaryStage.setScene(playgroundController.getPlayground().getScene());
         primaryStage.setOnCloseRequest(e -> {
             System.exit(0);
