@@ -1,5 +1,6 @@
 package langton.views;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -8,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import langton.data.Ant;
@@ -28,10 +30,9 @@ public class Playground {
     private double fieldWidth, fieldHeight;
 
     /**
-     * This constructor initialises a canvas with the given width and height.
-     * It then derives the graphicsContext from the newly created canvas.
-     * Additionally it instantiates the border pane and a title label.
-     * All nodes get stored in the scene.
+     * This constructor instantiates a border pane and adds two style sheets to it.
+     * Additionally it instantiates the canvas with the given width and height. and a title label.
+     * It then derives the graphicsContext from the newly created canvas and stores the border pane in the scene.
      * @param width The initial width of the canvas.
      * @param height The initial height of the canvas.
      */
@@ -42,11 +43,17 @@ public class Playground {
         canvas = new Canvas(width, height);
         graphicsContext = canvas.getGraphicsContext2D();
         pane = new BorderPane(canvas);
+        pane.getStylesheets().add("/stylesheets/defaultStyles.css");
+        pane.getStylesheets().add("/stylesheets/playgroundStyles.css");
 
         Label titleLabel = new Label("Langton's Ant");
         titleLabel.setTextAlignment(TextAlignment.CENTER);
+        titleLabel.getStyleClass().add("titleLabel");
+        HBox topBox = new HBox(titleLabel);
+        topBox.getStyleClass().add("topBox");
+        topBox.setAlignment(Pos.CENTER);
 
-        pane.setTop(titleLabel);
+        pane.setTop(topBox);
 
         scene = new Scene(pane);
     }
@@ -100,7 +107,7 @@ public class Playground {
         Point pos = ant.getPosition();
 
         // --------------------------------------------------------------------------
-        // Credit to Nikolas from StackOverflow
+        // Credit to Jewelsea from StackOverflow
         // https://stackoverflow.com/questions/33613664/javafx-drawimage-rotated?rq=1
         // --------------------------------------------------------------------------
         ImageView iv = new ImageView(antIcon);
