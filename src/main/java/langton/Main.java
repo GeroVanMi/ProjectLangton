@@ -16,7 +16,7 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         // Create Data Objects
-        Algorithm algorithm = new Algorithm(50, 50);
+        Algorithm algorithm = new Algorithm(25, 25);
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);
         // Settings for the window / primary stage

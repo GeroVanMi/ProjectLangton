@@ -75,20 +75,20 @@ public class Playground {
      */
     public void drawAnt(Ant ant) {
         Point pos = ant.getPosition();
-        String antIconUrl = "/images/ant_icon.jpg";
+        String antIconUrl = "/images/ant_icon_up.png";
 
         switch (ant.getDirection()) {
             case UP:
-                antIconUrl = "/images/ant_icon.jpg";
+                antIconUrl = "/images/ant_icon_up.png";
                 break;
             case RIGHT:
-                antIconUrl = "/images/ant_icon.jpg";
+                antIconUrl = "/images/ant_icon_right.png";
                 break;
             case DOWN:
-                antIconUrl = "/images/ant_icon.jpg";
+                antIconUrl = "/images/ant_icon_down.png";
                 break;
             case LEFT:
-                antIconUrl = "/images/ant_icon.jpg";
+                antIconUrl = "/images/ant_icon_left.png";
                 break;
         }
         Image antIcon = new Image(antIconUrl);
