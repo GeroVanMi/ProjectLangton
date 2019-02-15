@@ -13,7 +13,7 @@ import javafx.scene.text.TextAlignment;
  * @version 15_02_2019
  *
  * This class holds all the information related to the visual representation of the fields and ants on it.
- * It displays the playground in a borderpane.
+ * It displays the playground in a border pane.
  */
 public class Playground {
     private Scene scene;
@@ -21,6 +21,14 @@ public class Playground {
     private Canvas canvas;
     private GraphicsContext graphicsContext;
 
+    /**
+     * This constructor initialises a canvas with the given width and height.
+     * It then derives the graphicsContext from the newly created canvas.
+     * Additionally it initialises the border pane and title label.
+     * All nodes get stored in the scene.
+     * @param width The initial width of the canvas.
+     * @param height The initial height of the canvas.
+     */
     public Playground(double width, double height) {
         canvas = new Canvas(width, height);
         graphicsContext = canvas.getGraphicsContext2D();
@@ -34,8 +42,15 @@ public class Playground {
         scene = new Scene(pane);
     }
 
+    /**
+     * This method draws a rectangular grid onto the canvas.
+     * @param rows The amount of rows that are to be drawn.
+     * @param columns The amount of columns that are to be drawn.
+     */
     public void drawGrid(int rows, int columns) {
+        // The width of a single rectangle.
         double width = canvas.getWidth() / columns;
+        // The height of a single rectangle.
         double height = canvas.getHeight() / rows;
         for(int i = 0; i < rows; i++) {
             for(int j = 0; j < columns; j++) {
@@ -47,11 +62,19 @@ public class Playground {
         }
     }
 
+    /**
+     * Updates the canvas width and height.
+     * @param width The new width.
+     * @param height The new height.
+     */
     public void updateCanvasSize(double width, double height) {
         canvas.setWidth(width);
         canvas.setHeight(height);
     }
 
+    /**
+     * @return Returns the entire scene of the view.
+     */
     public Scene getScene() {
         return scene;
     }
