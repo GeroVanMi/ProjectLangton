@@ -1,5 +1,6 @@
 package langton.controllers;
 
+import langton.data.Algorithm;
 import langton.data.Map;
 import langton.views.Playground;
 
@@ -12,7 +13,7 @@ import langton.views.Playground;
  */
 public class PlaygroundController {
     private Playground playground;
-    private Map map;
+    private Algorithm algorithm;
 
     /**
      * This constructor creates a Map and initialises the values needed for the playground.
@@ -22,16 +23,16 @@ public class PlaygroundController {
      * @param columns The initial amount of columns that are to be displayed.
      */
     public PlaygroundController(double width, double height, int rows, int columns) {
-        this.map = new Map(rows, columns);
+        this.algorithm = new Algorithm(rows, columns);
         this.playground = new Playground(width, height);
-        this.playground.drawGrid(map.getRowsCount(), map.getColumnsCount());
+        this.playground.drawGrid(algorithm.getMap().getRowsCount(), algorithm.getMap().getColumnsCount());
     }
 
     /**
      * Updates the grid on the playground.
      */
     public void updateGrid() {
-        playground.drawGrid(map.getRowsCount(), map.getColumnsCount());
+        playground.drawGrid(algorithm.getMap().getRowsCount(), algorithm.getMap().getColumnsCount());
     }
 
     /**
