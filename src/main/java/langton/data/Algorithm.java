@@ -8,18 +8,33 @@ import java.util.ArrayList;
  *
  * This class manages all the data about the ants and the map.
  */
-public class Algorithm {
+public class Algorithm implements Runnable {
     private ArrayList<Ant> ants;
     private Map map;
 
     /**
      *
-     * @param rows
-     * @param columns
+     * @param rows The initial amount of rows that are to be displayed.
+     * @param columns The initial amount of columns that are to be displayed.
      */
     public Algorithm(int rows, int columns) {
         this.map = new Map(rows, columns);
         ants = new ArrayList<>();
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void run() {
+        try {
+            for (Ant ant : ants) {
+                ant.tick();
+            }
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -35,4 +50,6 @@ public class Algorithm {
     public Map getMap() {
         return map;
     }
+
+
 }
