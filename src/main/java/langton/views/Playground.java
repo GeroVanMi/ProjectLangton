@@ -1,11 +1,13 @@
 package langton.views;
 
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import langton.data.Ant;
@@ -97,14 +99,17 @@ public class Playground {
         Image antIcon = new Image(antIconUrl);
         Point pos = ant.getPosition();
 
-        graphicsContext.save();
-
-        graphicsContext.translate(pos.getX() + fieldWidth, pos.getY() * fieldHeight);
-        graphicsContext.rotate(degrees);
-        graphicsContext.drawImage(antIcon, 0, 0, fieldWidth, fieldHeight);
-
-        graphicsContext.restore();
-
+        // --------------------------------------------------------------------------
+        // Credit to Nikolas from StackOverflow
+        // https://stackoverflow.com/questions/33613664/javafx-drawimage-rotated?rq=1
+        // --------------------------------------------------------------------------
+        ImageView iv = new ImageView(antIcon);
+        iv.setRotate(degrees);
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+        Image rotatedImage = iv.snapshot(params, null);
+        graphicsContext.drawImage(rotatedImage, pos.getX() * fieldWidth, pos.getY() * fieldHeight, fieldWidth, fieldHeight);
+        // -----------------------------------------------------------------------------------------------------------------------
     }
 
     /**
