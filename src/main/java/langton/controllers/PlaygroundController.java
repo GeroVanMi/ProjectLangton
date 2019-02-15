@@ -1,7 +1,9 @@
 package langton.controllers;
 
 import langton.data.Algorithm;
-import langton.data.Map;
+import langton.data.Ant;
+import langton.helpers.Direction;
+import langton.helpers.Point;
 import langton.views.Playground;
 
 /**
@@ -31,6 +33,7 @@ public class PlaygroundController {
      */
     public void updateGrid() {
         playground.drawGrid(algorithm.getMap().getRowsCount(), algorithm.getMap().getColumnsCount());
+        playground.drawAnt(new Ant(new Point(10, 10), Direction.DOWN));
     }
 
     /**

@@ -59,4 +59,11 @@ public class Ant {
     public Point getPosition() {
         return position;
     }
+
+    /**
+     * @return Returns the direction the ant is facing.
+     */
+    public Direction getDirection() {
+        return direction;
+    }
 }
