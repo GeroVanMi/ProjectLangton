@@ -70,8 +70,8 @@ public class Playground {
     }
 
     /**
-     *
-     * @param ant
+     * This method draws an ant onto the field.
+     * @param ant The ant that is to be drawn.
      */
     public void drawAnt(Ant ant) {
         Point pos = ant.getPosition();
@@ -93,6 +93,13 @@ public class Playground {
         }
         Image antIcon = new Image(antIconUrl);
         graphicsContext.drawImage(antIcon, pos.getX() * fieldWidth + 5, pos.getY() * fieldHeight + 5, fieldWidth - 10, fieldHeight - 10);
+    }
+
+    /**
+     * This method clears the entire canvas.
+     */
+    public void clearCanvas() {
+        graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
     /**
