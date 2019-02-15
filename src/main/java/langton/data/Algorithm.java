@@ -8,7 +8,7 @@ import java.util.ArrayList;
  *
  * This class manages all the data about the ants and the map.
  */
-public class Algorithm implements Runnable {
+public class Algorithm extends Thread {
     private ArrayList<Ant> ants;
     private Map map;
 

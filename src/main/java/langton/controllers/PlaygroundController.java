@@ -1,6 +1,7 @@
 package langton.controllers;
 
 import langton.data.Algorithm;
+import langton.data.Map;
 import langton.views.Playground;
 
 /**
