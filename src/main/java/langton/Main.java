@@ -19,7 +19,6 @@ public class Main extends Application {
         Algorithm algorithm = new Algorithm(50, 50);
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);
-
         // Settings for the window / primary stage
         primaryStage.setScene(playgroundController.getPlayground().getScene());
         primaryStage.setMaximized(true);
