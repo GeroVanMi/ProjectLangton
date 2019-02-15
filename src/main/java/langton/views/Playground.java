@@ -74,25 +74,37 @@ public class Playground {
      * @param ant The ant that is to be drawn.
      */
     public void drawAnt(Ant ant) {
-        Point pos = ant.getPosition();
-        String antIconUrl = "/images/ant_icon_up.png";
-
+        double degrees;
         switch (ant.getDirection()) {
             case UP:
-                antIconUrl = "/images/ant_icon_up.png";
+                degrees = 0;
                 break;
             case RIGHT:
-                antIconUrl = "/images/ant_icon_right.png";
+                degrees = 90;
                 break;
             case DOWN:
-                antIconUrl = "/images/ant_icon_down.png";
+                degrees = 180;
                 break;
             case LEFT:
-                antIconUrl = "/images/ant_icon_left.png";
+                degrees = 270;
+                break;
+            default:
+                degrees = 0;
                 break;
         }
+
+        String antIconUrl = "/images/ant_icon.png";
         Image antIcon = new Image(antIconUrl);
-        graphicsContext.drawImage(antIcon, pos.getX() * fieldWidth + 5, pos.getY() * fieldHeight + 5, fieldWidth - 10, fieldHeight - 10);
+        Point pos = ant.getPosition();
+
+        graphicsContext.save();
+
+        graphicsContext.translate(pos.getX() + fieldWidth, pos.getY() * fieldHeight);
+        graphicsContext.rotate(degrees);
+        graphicsContext.drawImage(antIcon, 0, 0, fieldWidth, fieldHeight);
+
+        graphicsContext.restore();
+
     }
 
     /**

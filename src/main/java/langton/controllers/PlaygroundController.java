@@ -33,7 +33,7 @@ public class PlaygroundController {
      */
     public void updateGrid() {
         playground.drawGrid(algorithm.getMap().getRowsCount(), algorithm.getMap().getColumnsCount());
-        playground.drawAnt(new Ant(new Point(10, 10), Direction.DOWN));
+        playground.drawAnt(new Ant(new Point(10, 10), Direction.RIGHT));
     }
 
     /**
