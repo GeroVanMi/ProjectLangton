@@ -7,7 +7,7 @@ import langton.controllers.PlaygroundController;
 
 /**
  * @author Gerome Wiss
- * @version 14_02_2019
+ * @version 15_02_2019
  *
  * This class is called when a user starts the application. It acts as an initiator for many values.
  */
@@ -18,10 +18,9 @@ public class Main extends Application {
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), 50, 50);
         primaryStage.setScene(playgroundController.getPlayground().getScene());
-        primaryStage.setOnCloseRequest(e -> {
-            System.exit(0);
-        });
+        primaryStage.setOnCloseRequest(e -> System.exit(0));
         primaryStage.show();
-        playgroundController.viewDidLoad(primaryStage.getWidth(), primaryStage.getHeight());
+        playgroundController.updateCanvasSize(primaryStage.getWidth(), primaryStage.getHeight());
+        playgroundController.updateGrid();
     }
 }

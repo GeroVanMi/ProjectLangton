@@ -2,6 +2,12 @@ package langton.data;
 
 import javafx.scene.paint.Color;
 
+/**
+ * @author Natalie Breu
+ * @version 14_02_2019
+ *
+ * TODO: Add JavaDoc
+ */
 public class Map {
 
     private Field[][] fields;

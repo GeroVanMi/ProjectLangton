@@ -10,7 +10,7 @@ import javafx.scene.text.TextAlignment;
 
 /**
  * @author Gerome Wiss
- * @version 14_02_2019
+ * @version 15_02_2019
  *
  * This class holds all the information related to the visual representation of the fields and ants on it.
  * It displays the playground in a borderpane.
