@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import langton.data.Ant;
+import langton.data.Field;
 import langton.data.Map;
 import langton.helpers.Point;
 
@@ -135,6 +136,28 @@ public class Playground extends View {
      */
     public void clearCanvas() {
         graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    }
+
+    /**
+     *
+     * @param x
+     * @param y
+     */
+    public void clearField(int x, int y) {
+        graphicsContext.clearRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
+    }
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @param field
+     */
+    public void drawField(int x, int y, Field field) {
+        graphicsContext.setFill(field.getColor());
+        graphicsContext.fillRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
+        graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 1));
+        graphicsContext.strokeRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
     }
 
     /**
