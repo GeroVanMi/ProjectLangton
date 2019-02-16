@@ -5,11 +5,13 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import langton.helpers.Direction;
 import langton.helpers.Point;
+import langton.helpers.TickListener;
+
 import java.util.ArrayList;
 
 /**
  * @author Gerome Wiss
- * @version 15_02_2019
+ * @version 16_02_2019
  *
  * This class manages all the data about the ants and the map.
  */
@@ -17,6 +19,7 @@ public class Algorithm {
     private ArrayList<Ant> ants;
     private Map map;
     private Timeline timeline;
+    private ArrayList<TickListener> tickListeners;
 
     /**
      *
@@ -27,7 +30,23 @@ public class Algorithm {
         this.map = new Map(rows, columns);
         map.generateMap();
         ants = new ArrayList<>();
-        this.createTimeline(1000);
+        tickListeners = new ArrayList<>();
+        this.createTimeline(500);
+    }
+
+    /**
+     *
+     */
+    public void tick() {
+        for(Ant ant : ants) {
+            ant.move();
+            Field newField = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
+            newField.swapColor();
+            ant.changeDirection(newField);
+        }
+        for(TickListener tickListener : tickListeners) {
+            tickListener.update();
+        }
     }
 
     /**
@@ -36,10 +55,9 @@ public class Algorithm {
      */
     public void createTimeline(int intervalMillis) {
         this.timeline = new Timeline(new KeyFrame(Duration.millis(intervalMillis), e -> {
-            for(Ant ant : ants) {
-                ant.tick();
-            }
+            this.tick();
         }));
+        this.timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
     /**
@@ -90,5 +108,15 @@ public class Algorithm {
         return map;
     }
 
+    public void addTickListener(TickListener tickListener) {
+        tickListeners.add(tickListener);
+    }
 
+    public void removeTickListener(TickListener tickListener) {
+        tickListeners.remove(tickListener);
+    }
+
+    public void clearTickListners() {
+        tickListeners.clear();
+    }
 }

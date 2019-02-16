@@ -30,6 +30,8 @@ public class Main extends Application {
 
         // Is executed after the view has been loaded. Necessary to access certain attributes like height.
         playgroundController.updateCanvasSize(primaryStage.getWidth(), primaryStage.getHeight());
-        playgroundController.updateGrid();
+        playgroundController.updatePlayground();
+
+        algorithm.play();
     }
 }

@@ -51,7 +51,7 @@ public class Point {
      * Increases the y-value by one.
      */
     public void increaseY() {
-        this.y--;
+        this.y++;
     }
 
     /**

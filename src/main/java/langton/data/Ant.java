@@ -1,11 +1,12 @@
 package langton.data;
 
+import javafx.scene.paint.Color;
 import langton.helpers.Direction;
 import langton.helpers.Point;
 
 /**
  * @author Gerome Wiss
- * @version 15_02_2019
+ * @version 16_02_2019
  *
  * This class holds all information about a single ant on the field.
  * It provides methods to move the ant around and to change the direction it's facing.
@@ -22,6 +23,61 @@ public class Ant {
     public Ant(Point position, Direction direction) {
         this.position = position;
         this.direction = direction;
+    }
+
+    /**
+     * @param field
+     */
+    public void changeDirection(Field field) {
+        Color color = field.getColor();
+        if(color.getRed() < 0.3 && color.getGreen() < 0.3 && color.getBlue() < 0.3) {
+            this.turnRight();
+        } else {
+            this.turnLeft();
+        }
+    }
+
+    /**
+     * Temporary solution!
+     */
+    public void turnRight() {
+        // TODO: Replace with degrees.
+        switch (direction) {
+            case UP:
+                direction = Direction.RIGHT;
+                break;
+            case RIGHT:
+                direction = Direction.DOWN;
+                break;
+            case DOWN:
+                direction = Direction.LEFT;
+                break;
+            case LEFT:
+                direction = Direction.UP;
+                break;
+        }
+    }
+
+
+    /**
+     * Temporary solution!
+     */
+    public void turnLeft() {
+        // TODO: Replace with degrees.
+        switch (direction) {
+            case UP:
+                direction = Direction.LEFT;
+                break;
+            case RIGHT:
+                direction = Direction.UP;
+                break;
+            case DOWN:
+                direction = Direction.RIGHT;
+                break;
+            case LEFT:
+                direction = Direction.DOWN;
+                break;
+        }
     }
 
     /**

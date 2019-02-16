@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @author Natalie Breu
- * @version 14_02_2019
+ * @version 16_02_2019
  *
  * TODO: Add JavaDoc
  */
@@ -17,9 +17,12 @@ public class Field {
         this.color = color;
     }
 
-    public void swapColor(Color color){
-        this.color = color;
-
+    public void swapColor(){
+        if(color.getRed() < 0.3 && color.getGreen() < 0.3 && color.getBlue() < 0.3) {
+            color = new Color(0.5, 0.5, 0.3, 1);
+        } else {
+            color = new Color(0.2, 0.2, 0.2, 1);
+        }
     }
 
     public Color getColor() {

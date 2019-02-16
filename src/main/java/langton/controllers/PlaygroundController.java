@@ -2,8 +2,7 @@ package langton.controllers;
 
 import langton.data.Algorithm;
 import langton.data.Ant;
-import langton.helpers.Direction;
-import langton.helpers.Point;
+import langton.helpers.TickListener;
 import langton.views.Playground;
 
 /**
@@ -13,7 +12,7 @@ import langton.views.Playground;
  * This class controls all changes that happen on the corresponding playground object.
  * It handles inputs from the user and changes the view according to the changes in the data.
  */
-public class PlaygroundController {
+public class PlaygroundController implements TickListener {
     private Playground playground;
     private Algorithm algorithm;
 
@@ -24,14 +23,16 @@ public class PlaygroundController {
      */
     public PlaygroundController(double width, double height, Algorithm algorithm) {
         this.algorithm = algorithm;
+        algorithm.addTickListener(this);
         this.playground = new Playground(width, height);
-        this.updateGrid();
+        this.updatePlayground();
     }
 
     /**
      * Updates the grid on the playground.
      */
-    public void updateGrid() {
+    public void updatePlayground() {
+        playground.clearCanvas();
         playground.drawGrid(algorithm.getMap().getRowsCount(), algorithm.getMap().getColumnsCount(), algorithm.getMap());
         for(Ant ant : algorithm.getAnts()) {
             playground.drawAnt(ant);
@@ -52,5 +53,10 @@ public class PlaygroundController {
      */
     public Playground getPlayground() {
         return playground;
+    }
+
+    @Override
+    public void update() {
+        this.updatePlayground();
     }
 }
