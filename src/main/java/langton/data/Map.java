@@ -26,7 +26,6 @@ public class Map {
      * @param amountX The initial amount of fields which increases the rows.
      * @param amountY The initial amount of fields which increases the columns.
      */
-
     public void increaseMapSize(int amountX, int amountY) {
         for (int x = 0; x < amountX; x++) {
             for (int y = 0; y < amountY; y++) {

@@ -168,6 +168,5 @@ public class Playground extends View {
     public void updateCanvasSize(double width, double height) {
         canvas.setWidth(width);
         canvas.setHeight(height - (topBox.getHeight() + topBox.getPadding().getBottom() + topBox.getPadding().getTop() + 2));
-        System.out.println(topBox.getHeight());
     }
 }
