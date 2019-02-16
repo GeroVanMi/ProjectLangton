@@ -22,11 +22,10 @@ public class PlaygroundController extends ViewController implements TickListener
      * @param height The initial height of the window.
      */
     public PlaygroundController(double width, double height, Algorithm algorithm) {
-        super();
-
+        this.playground = new Playground(width, height);
+        super.createView(playground);
         this.algorithm = algorithm;
         algorithm.addTickListener(this);
-        this.playground = new Playground(width, height);
         this.updatePlayground();
     }
 

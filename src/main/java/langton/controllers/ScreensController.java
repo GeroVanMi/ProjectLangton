@@ -16,15 +16,24 @@ public class ScreensController {
     /**
      *
      * @param window
-     * @param currentViewController
+     * @param firstViewController
      */
-    public ScreensController(Stage window, ViewController currentViewController) {
+    public ScreensController(Stage window, ViewController firstViewController) {
         this.window = window;
-        this.currentViewController = currentViewController;
-        viewControllers = new ArrayList<>();
+        this.window.setMaximized(true);
+        this.window.setOnCloseRequest(e -> System.exit(0));
+
+        this.viewControllers = new ArrayList<>();
+        this.loadScreen(firstViewController);
     }
 
+    /**
+     *
+     * @param nextViewController
+     */
     public void loadScreen(ViewController nextViewController) {
+        // TODO: Check if nextViewController already is in the list.
         window.setScene(nextViewController.getView().getScene());
+        viewControllers.add(nextViewController);
     }
 }

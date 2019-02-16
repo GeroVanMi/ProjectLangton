@@ -1,7 +1,6 @@
 package langton.views;
 
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -24,8 +23,8 @@ import langton.helpers.Point;
  * It displays the playground in a border pane.
  */
 public class Playground extends View {
-    private Scene scene;
     private BorderPane pane;
+    private HBox topBox;
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private double fieldWidth, fieldHeight;
@@ -38,25 +37,28 @@ public class Playground extends View {
      * @param height The initial height of the canvas.
      */
     public Playground(double width, double height) {
+        super();
         fieldHeight = 0;
         fieldWidth = 0;
 
-        canvas = new Canvas(width, height);
-        graphicsContext = canvas.getGraphicsContext2D();
-        pane = new BorderPane(canvas);
+        pane = new BorderPane();
         pane.getStylesheets().add("/stylesheets/defaultStyles.css");
         pane.getStylesheets().add("/stylesheets/playgroundStyles.css");
 
         Label titleLabel = new Label("Langton's Ant");
         titleLabel.setTextAlignment(TextAlignment.CENTER);
         titleLabel.getStyleClass().add("titleLabel");
-        HBox topBox = new HBox(titleLabel);
+        topBox = new HBox(titleLabel);
         topBox.getStyleClass().add("topBox");
         topBox.setAlignment(Pos.CENTER);
 
         pane.setTop(topBox);
 
-        scene = new Scene(pane);
+        canvas = new Canvas(width, height - topBox.getHeight());
+        graphicsContext = canvas.getGraphicsContext2D();
+        pane.setCenter(canvas);
+
+        super.addNodeToRoot(pane);
     }
 
     /**
@@ -142,13 +144,7 @@ public class Playground extends View {
      */
     public void updateCanvasSize(double width, double height) {
         canvas.setWidth(width);
-        canvas.setHeight(height);
-    }
-
-    /**
-     * @return Returns the entire scene of the view.
-     */
-    public Scene getScene() {
-        return scene;
+        canvas.setHeight(height - (topBox.getHeight() + topBox.getPadding().getBottom() + topBox.getPadding().getTop() + 2));
+        System.out.println(topBox.getHeight());
     }
 }
