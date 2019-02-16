@@ -25,6 +25,7 @@ public class Algorithm {
      */
     public Algorithm(int rows, int columns) {
         this.map = new Map(rows, columns);
+        map.generateMap();
         ants = new ArrayList<>();
         this.createTimeline(1000);
     }

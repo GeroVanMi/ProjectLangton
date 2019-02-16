@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import langton.data.Ant;
+import langton.data.Map;
 import langton.helpers.Point;
 
 /**
@@ -63,15 +64,18 @@ public class Playground {
      * @param rows The amount of rows that are to be drawn.
      * @param columns The amount of columns that are to be drawn.
      */
-    public void drawGrid(int rows, int columns) {
+    public void drawGrid(int rows, int columns, Map map) {
         // The width of a single rectangle.
         fieldWidth = canvas.getWidth() / columns;
         // The height of a single rectangle.
         fieldHeight = canvas.getHeight() / rows;
-        for(int i = 0; i < rows; i++) {
-            for(int j = 0; j < columns; j++) {
-                graphicsContext.setFill(new Color(0.2, 0.2, 0.2, 1));
+
+        for(int i = 0; i < map.getFields().length; i++) {
+            for(int j = 0; j < map.getFields()[i].length; j++) {
+                // Draw the field background.
+                graphicsContext.setFill(map.getFields()[i][j].getColor());
                 graphicsContext.fillRect(i * fieldWidth, j * fieldHeight, fieldWidth, fieldHeight);
+                // Draw the borders
                 graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 1));
                 graphicsContext.strokeRect(i * fieldWidth, j * fieldHeight, fieldWidth, fieldHeight);
             }
@@ -110,11 +114,16 @@ public class Playground {
         // Credit to Jewelsea from StackOverflow
         // https://stackoverflow.com/questions/33613664/javafx-drawimage-rotated?rq=1
         // --------------------------------------------------------------------------
+        // Create an Image view
         ImageView iv = new ImageView(antIcon);
+        // Rotate the image in the Image view
         iv.setRotate(degrees);
+        // Set parameters for the snapshot
         SnapshotParameters params = new SnapshotParameters();
         params.setFill(Color.TRANSPARENT);
+        // Take a snapshot of the image view and store it in an image.
         Image rotatedImage = iv.snapshot(params, null);
+        // Draw the newly rotated image.
         graphicsContext.drawImage(rotatedImage, pos.getX() * fieldWidth, pos.getY() * fieldHeight, fieldWidth, fieldHeight);
         // -----------------------------------------------------------------------------------------------------------------------
     }

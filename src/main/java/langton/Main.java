@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import langton.controllers.PlaygroundController;
 import langton.data.Algorithm;
+import langton.helpers.Direction;
 
 
 /**
@@ -17,6 +18,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Create Data Objects
         Algorithm algorithm = new Algorithm(25, 25);
+        algorithm.addAnt(5, 5, Direction.DOWN);
+
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);
         // Settings for the window / primary stage

@@ -19,7 +19,7 @@ public class Map {
     public void increaseMapSize(int amountX, int amountY) {
         for (int x = 0; x < amountX; x++) {
             for (int y = 0; y < amountY; y++) {
-                fields[x][y] = new Field(new Color(0.23, 0.23, 0.23, 1));
+                fields[x][y] = new Field(new Color(0.2, 0.2, 0.2, 1));
             }
         }
     }
@@ -27,7 +27,7 @@ public class Map {
     public void generateMap() {
         for (int x = 0; x < fields.length; x++) {
             for (int y = 0; y < fields[x].length; y++) {
-                fields[x][y] = new Field(new Color(0.23, 0.23, 0.23, 1));
+                fields[x][y] = new Field(new Color(0.2, 0.2, 0.2, 1));
             }
         }
     }

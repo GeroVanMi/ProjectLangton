@@ -25,18 +25,17 @@ public class PlaygroundController {
     public PlaygroundController(double width, double height, Algorithm algorithm) {
         this.algorithm = algorithm;
         this.playground = new Playground(width, height);
-        this.playground.drawGrid(algorithm.getMap().getRowsCount(), algorithm.getMap().getColumnsCount());
+        this.updateGrid();
     }
 
     /**
      * Updates the grid on the playground.
      */
     public void updateGrid() {
-        playground.drawGrid(algorithm.getMap().getRowsCount(), algorithm.getMap().getColumnsCount());
-        playground.drawAnt(new Ant(new Point(1, 1), Direction.UP));
-        playground.drawAnt(new Ant(new Point(1, 2), Direction.RIGHT));
-        playground.drawAnt(new Ant(new Point(1, 3), Direction.DOWN));
-        playground.drawAnt(new Ant(new Point(1, 4), Direction.LEFT));
+        playground.drawGrid(algorithm.getMap().getRowsCount(), algorithm.getMap().getColumnsCount(), algorithm.getMap());
+        for(Ant ant : algorithm.getAnts()) {
+            playground.drawAnt(ant);
+        }
     }
 
     /**
