@@ -6,16 +6,15 @@ import javafx.scene.paint.Color;
  * @author Natalie Breu
  * @version 14_02_2019
  * <p>
- *  This class handel the creation and increment of the field, on which the ant(s) move.
- * TODO: Add JavaDoc
+ * This class handles the creation and increment of the field, on which the ant(s) move.
  */
 public class Map {
 
     private Field[][] fields;
 
     /**
-     * @param rows
-     * @param columns
+     * @param rows The amount of rows that are initially displayed in the map.
+     * @param columns The amount of columns that are initially displayed in the map.
      */
 
     public Map(int rows, int columns) {
@@ -24,7 +23,6 @@ public class Map {
 
     /**
      * When the ant reaches the end of the field, this method increases the field.
-     *
      * @param amountX The initial amount of fields which increases the rows.
      * @param amountY The initial amount of fields which increases the columns.
      */
@@ -38,9 +36,8 @@ public class Map {
     }
 
     /**
-     * This method created the startfield with a lenght and a width of 50 grey fields.
+     * This method created the startfield with a length and a width of 50 grey fields.
      */
-
     public void generateMap() {
         for (int x = 0; x < fields.length; x++) {
             for (int y = 0; y < fields[x].length; y++) {
