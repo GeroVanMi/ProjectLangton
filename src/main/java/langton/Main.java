@@ -9,7 +9,7 @@ import langton.helpers.Direction;
 
 /**
  * @author Gerome Wiss
- * @version 15_02_2019
+ * @version 16_02_2019
  *
  * This class is called when a user starts the application. It acts as an initiator for many values.
  */

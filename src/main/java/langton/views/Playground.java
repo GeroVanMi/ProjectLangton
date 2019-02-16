@@ -18,7 +18,7 @@ import langton.helpers.Point;
 
 /**
  * @author Gerome Wiss
- * @version 15_02_2019
+ * @version 16_02_2019
  *
  * This class holds all the information related to the visual representation of the fields and ants on it.
  * It displays the playground in a border pane.
