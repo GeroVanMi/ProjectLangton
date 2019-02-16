@@ -17,8 +17,12 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         // Create Data Objects
-        Algorithm algorithm = new Algorithm(25, 25);
-        algorithm.addAnt(5, 5, Direction.DOWN);
+        Algorithm algorithm = new Algorithm(100, 100);
+        // Add some example ants.
+        algorithm.addAnt(25, 25, Direction.UP);
+        algorithm.addAnt(75, 25, Direction.RIGHT);
+        algorithm.addAnt(25, 75, Direction.DOWN);
+        algorithm.addAnt(75, 75, Direction.LEFT);
 
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);
@@ -32,6 +36,7 @@ public class Main extends Application {
         playgroundController.updateCanvasSize(primaryStage.getWidth(), primaryStage.getHeight());
         playgroundController.updatePlayground();
 
+        // Start the algorithm.
         algorithm.play();
     }
 }

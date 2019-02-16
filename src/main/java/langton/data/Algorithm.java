@@ -31,11 +31,12 @@ public class Algorithm {
         map.generateMap();
         ants = new ArrayList<>();
         tickListeners = new ArrayList<>();
-        this.createTimeline(500);
+        this.createTimeline(100);
     }
 
     /**
-     *
+     * This method causes all the ants to move and the fields to change color when an ant moves onto them.
+     * It also notifies all tick listeners, so that they can update their GUI.
      */
     public void tick() {
         for(Ant ant : ants) {
@@ -54,9 +55,7 @@ public class Algorithm {
      * @param intervalMillis The amount of time that passes between two cycles in milliseconds.
      */
     public void createTimeline(int intervalMillis) {
-        this.timeline = new Timeline(new KeyFrame(Duration.millis(intervalMillis), e -> {
-            this.tick();
-        }));
+        this.timeline = new Timeline(new KeyFrame(Duration.millis(intervalMillis), e -> this.tick()));
         this.timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
@@ -108,14 +107,25 @@ public class Algorithm {
         return map;
     }
 
+    /**
+     * Adds a tick listener. Used whenever a new view controller wants to access the data of the algorithm.
+     * @param tickListener The tick listener that is to be added.
+     */
     public void addTickListener(TickListener tickListener) {
         tickListeners.add(tickListener);
     }
 
+    /**
+     * Removes a tick listener. Used whenever a view controller is deleted.
+     * @param tickListener The tick listener to be removed.
+     */
     public void removeTickListener(TickListener tickListener) {
         tickListeners.remove(tickListener);
     }
 
+    /**
+     * Removes all tick listeners.
+     */
     public void clearTickListners() {
         tickListeners.clear();
     }

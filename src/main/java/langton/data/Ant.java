@@ -17,6 +17,7 @@ public class Ant {
     private Direction direction;
 
     /**
+     * Initialises an ant.
      * @param position The inital position of the ant.
      * @param direction The inital direction the ant is facing.
      */
@@ -26,7 +27,8 @@ public class Ant {
     }
 
     /**
-     * @param field
+     * Changes the direction of the ant, based on the color of the Field.
+     * @param field The field that the ant stands on.
      */
     public void changeDirection(Field field) {
         Color color = field.getColor();
@@ -38,7 +40,7 @@ public class Ant {
     }
 
     /**
-     * Temporary solution!
+     * Temporary solution! To be replaced with degrees.
      */
     public void turnRight() {
         // TODO: Replace with degrees.
@@ -60,7 +62,7 @@ public class Ant {
 
 
     /**
-     * Temporary solution!
+     * Temporary solution! To be replaced by degrees.
      */
     public void turnLeft() {
         // TODO: Replace with degrees.

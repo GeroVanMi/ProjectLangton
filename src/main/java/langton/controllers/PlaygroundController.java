@@ -55,6 +55,10 @@ public class PlaygroundController implements TickListener {
         return playground;
     }
 
+    /**
+     * This method is called whenever the data in the algorithm changed in a significant way.
+     * @see TickListener
+     */
     @Override
     public void update() {
         this.updatePlayground();
