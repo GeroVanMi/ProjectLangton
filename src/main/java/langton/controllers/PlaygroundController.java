@@ -12,7 +12,7 @@ import langton.views.Playground;
  * This class controls all changes that happen on the corresponding playground object.
  * It handles inputs from the user and changes the view according to the changes in the data.
  */
-public class PlaygroundController implements TickListener {
+public class PlaygroundController extends ViewController implements TickListener {
     private Playground playground;
     private Algorithm algorithm;
 
@@ -22,6 +22,8 @@ public class PlaygroundController implements TickListener {
      * @param height The initial height of the window.
      */
     public PlaygroundController(double width, double height, Algorithm algorithm) {
+        super();
+
         this.algorithm = algorithm;
         algorithm.addTickListener(this);
         this.playground = new Playground(width, height);
