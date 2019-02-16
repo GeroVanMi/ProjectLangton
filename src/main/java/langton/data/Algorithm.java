@@ -5,11 +5,13 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import langton.helpers.Direction;
 import langton.helpers.Point;
+import langton.helpers.TickListener;
+
 import java.util.ArrayList;
 
 /**
  * @author Gerome Wiss
- * @version 15_02_2019
+ * @version 16_02_2019
  *
  * This class manages all the data about the ants and the map.
  */
@@ -17,6 +19,7 @@ public class Algorithm {
     private ArrayList<Ant> ants;
     private Map map;
     private Timeline timeline;
+    private ArrayList<TickListener> tickListeners;
 
     /**
      *
@@ -25,8 +28,26 @@ public class Algorithm {
      */
     public Algorithm(int rows, int columns) {
         this.map = new Map(rows, columns);
+        map.generateMap();
         ants = new ArrayList<>();
-        this.createTimeline(1000);
+        tickListeners = new ArrayList<>();
+        this.createTimeline(100);
+    }
+
+    /**
+     * This method causes all the ants to move and the fields to change color when an ant moves onto them.
+     * It also notifies all tick listeners, so that they can update their GUI.
+     */
+    public void tick() {
+        for(Ant ant : ants) {
+            ant.move();
+            Field newField = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
+            newField.swapColor();
+            ant.changeDirection(newField);
+        }
+        for(TickListener tickListener : tickListeners) {
+            tickListener.update();
+        }
     }
 
     /**
@@ -34,11 +55,8 @@ public class Algorithm {
      * @param intervalMillis The amount of time that passes between two cycles in milliseconds.
      */
     public void createTimeline(int intervalMillis) {
-        this.timeline = new Timeline(new KeyFrame(Duration.millis(intervalMillis), e -> {
-            for(Ant ant : ants) {
-                ant.tick();
-            }
-        }));
+        this.timeline = new Timeline(new KeyFrame(Duration.millis(intervalMillis), e -> this.tick()));
+        this.timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
     /**
@@ -89,5 +107,26 @@ public class Algorithm {
         return map;
     }
 
+    /**
+     * Adds a tick listener. Used whenever a new view controller wants to access the data of the algorithm.
+     * @param tickListener The tick listener that is to be added.
+     */
+    public void addTickListener(TickListener tickListener) {
+        tickListeners.add(tickListener);
+    }
 
+    /**
+     * Removes a tick listener. Used whenever a view controller is deleted.
+     * @param tickListener The tick listener to be removed.
+     */
+    public void removeTickListener(TickListener tickListener) {
+        tickListeners.remove(tickListener);
+    }
+
+    /**
+     * Removes all tick listeners.
+     */
+    public void clearTickListners() {
+        tickListeners.clear();
+    }
 }
