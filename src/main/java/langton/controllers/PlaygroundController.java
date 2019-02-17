@@ -37,7 +37,7 @@ public class PlaygroundController extends ViewController implements TickListener
         playground.clearCanvas();
         playground.drawGrid(algorithm.getMap().getRowsCount(), algorithm.getMap().getColumnsCount(), algorithm.getMap());
         for(Ant ant : algorithm.getAnts()) {
-            playground.drawAnt(ant);
+            //playground.drawAnt(ant);
         }
     }
 
@@ -55,7 +55,7 @@ public class PlaygroundController extends ViewController implements TickListener
                 }
             }
 
-            playground.drawAnt(ant);
+            //playground.drawAnt(ant);
         }
     }
 

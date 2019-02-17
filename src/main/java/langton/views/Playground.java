@@ -151,7 +151,7 @@ public class Playground extends View {
     public void drawField(int x, int y, Field field) {
         graphicsContext.setFill(field.getColor());
         graphicsContext.fillRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
-        graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 0.5));
+        graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 1));
         graphicsContext.strokeRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
     }
 

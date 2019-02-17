@@ -31,7 +31,7 @@ public class Algorithm {
         map.generateMap();
         ants = new ArrayList<>();
         tickListeners = new ArrayList<>();
-        this.createTimeline(25);
+        this.createTimeline(5);
     }
 
     /**
@@ -40,10 +40,15 @@ public class Algorithm {
      */
     public void tick() {
         for(Ant ant : ants) {
-            ant.move();
-            Field newField = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
-            newField.brightenUp();
-            ant.changeDirection(newField);
+            try {
+                ant.move();
+                Field newField = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
+                newField.brightenUp();
+                ant.changeDirection(newField);
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                // TODO: Increase Map size
+                ants.remove(ant);
+            }
         }
         for(TickListener tickListener : tickListeners) {
             tickListener.update();
