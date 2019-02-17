@@ -31,7 +31,7 @@ public class Algorithm {
         map.generateMap();
         ants = new ArrayList<>();
         tickListeners = new ArrayList<>();
-        this.createTimeline(100);
+        this.createTimeline(25);
     }
 
     /**
@@ -42,7 +42,7 @@ public class Algorithm {
         for(Ant ant : ants) {
             ant.move();
             Field newField = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
-            newField.swapColor();
+            newField.brightenUp();
             ant.changeDirection(newField);
         }
         for(TickListener tickListener : tickListeners) {

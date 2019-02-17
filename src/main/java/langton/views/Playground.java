@@ -75,12 +75,7 @@ public class Playground extends View {
 
         for(int i = 0; i < map.getFields().length; i++) {
             for(int j = 0; j < map.getFields()[i].length; j++) {
-                // Draw the field background.
-                graphicsContext.setFill(map.getFields()[i][j].getColor());
-                graphicsContext.fillRect(i * fieldWidth, j * fieldHeight, fieldWidth, fieldHeight);
-                // Draw the borders
-                graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 1));
-                graphicsContext.strokeRect(i * fieldWidth, j * fieldHeight, fieldWidth, fieldHeight);
+                this.drawField(i, j, map.getFields()[i][j]);
             }
         }
     }
@@ -156,7 +151,7 @@ public class Playground extends View {
     public void drawField(int x, int y, Field field) {
         graphicsContext.setFill(field.getColor());
         graphicsContext.fillRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
-        graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 1));
+        graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 0.5));
         graphicsContext.strokeRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
     }
 

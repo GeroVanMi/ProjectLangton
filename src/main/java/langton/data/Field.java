@@ -7,17 +7,18 @@ import javafx.scene.paint.Color;
  * @version 16_02_2019
  * <p>
  *  This class is responsible for the changing of the field color.
- * TODO: Add JavaDoc
  */
 public class Field {
 
     private Color color;
+    private boolean wasVisited;
 
     /**
      * @param color
      */
 
     public Field(Color color) {
+        this.wasVisited = false;
         this.color = color;
     }
 
@@ -33,10 +34,31 @@ public class Field {
         }
     }
 
+    public void brightenUp() {
+        if (wasVisited) {
+            wasVisited = false;
+        } else {
+            wasVisited = true;
+        }
+        double red = color.getRed(), green = color.getGreen(), blue = color.getBlue();
+        if(color.getGreen() < 0.95) {
+            green += 0.05;
+        } else if(color.getRed() < 0.95) {
+            red += 0.05;
+        } else if(color.getBlue() < 0.95) {
+            blue += 0.05;
+        }
+        color = new Color(red, green, blue, 1);
+    }
+
     /**
      * @return Returns the color of the field.
      */
     public Color getColor() {
         return color;
+    }
+
+    public boolean wasVisited() {
+        return wasVisited;
     }
 }

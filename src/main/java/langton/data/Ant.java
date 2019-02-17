@@ -31,8 +31,7 @@ public class Ant {
      * @param field The field that the ant stands on.
      */
     public void changeDirection(Field field) {
-        Color color = field.getColor();
-        if(color.getRed() < 0.3 && color.getGreen() < 0.3 && color.getBlue() < 0.3) {
+        if(field.wasVisited()) {
             this.turnRight();
         } else {
             this.turnLeft();
