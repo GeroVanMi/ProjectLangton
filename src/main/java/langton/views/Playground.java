@@ -90,25 +90,6 @@ public class Playground extends View {
      * @param ant The ant that is to be drawn.
      */
     public void drawAnt(Ant ant) {
-        double degrees;
-        switch (ant.getDirection()) {
-            case UP:
-                degrees = 0;
-                break;
-            case RIGHT:
-                degrees = 90;
-                break;
-            case DOWN:
-                degrees = 180;
-                break;
-            case LEFT:
-                degrees = 270;
-                break;
-            default:
-                degrees = 0;
-                break;
-        }
-
         String antIconUrl = "/images/ant_icon.png";
         Image antIcon = new Image(antIconUrl);
         Point pos = ant.getPosition();
@@ -120,7 +101,7 @@ public class Playground extends View {
         // Create an Image view
         ImageView iv = new ImageView(antIcon);
         // Rotate the image in the Image view
-        iv.setRotate(degrees);
+        iv.setRotate(ant.getDirection());
         // Set parameters for the snapshot
         SnapshotParameters params = new SnapshotParameters();
         params.setFill(Color.TRANSPARENT);

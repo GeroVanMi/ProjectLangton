@@ -3,7 +3,6 @@ package langton.data;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import langton.helpers.Direction;
 import langton.helpers.Point;
 import langton.helpers.TickListener;
 
@@ -89,7 +88,7 @@ public class Algorithm {
      * @param y The starting y coordinate of the new ant.
      * @param direction The direction the ant is initially facing.
      */
-    public void addAnt(int x, int y, Direction direction) {
+    public void addAnt(int x, int y, int direction) {
         ants.add(new Ant(new Point(x, y), direction));
     }
 

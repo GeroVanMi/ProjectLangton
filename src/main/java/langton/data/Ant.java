@@ -1,7 +1,6 @@
 package langton.data;
 
 import javafx.scene.paint.Color;
-import langton.helpers.Direction;
 import langton.helpers.Point;
 
 /**
@@ -14,14 +13,14 @@ import langton.helpers.Point;
 public class Ant {
 
     private Point position;
-    private Direction direction;
+    private int direction;
 
     /**
      * Initialises an ant.
      * @param position The inital position of the ant.
      * @param direction The inital direction the ant is facing.
      */
-    public Ant(Point position, Direction direction) {
+    public Ant(Point position, int direction) {
         this.position = position;
         this.direction = direction;
     }
@@ -43,20 +42,10 @@ public class Ant {
      * Temporary solution! To be replaced with degrees.
      */
     public void turnRight() {
-        // TODO: Replace with degrees.
-        switch (direction) {
-            case UP:
-                direction = Direction.RIGHT;
-                break;
-            case RIGHT:
-                direction = Direction.DOWN;
-                break;
-            case DOWN:
-                direction = Direction.LEFT;
-                break;
-            case LEFT:
-                direction = Direction.UP;
-                break;
+        if(direction < 270) {
+            direction += 90;
+        } else {
+            direction = 0;
         }
     }
 
@@ -65,20 +54,10 @@ public class Ant {
      * Temporary solution! To be replaced by degrees.
      */
     public void turnLeft() {
-        // TODO: Replace with degrees.
-        switch (direction) {
-            case UP:
-                direction = Direction.LEFT;
-                break;
-            case RIGHT:
-                direction = Direction.UP;
-                break;
-            case DOWN:
-                direction = Direction.RIGHT;
-                break;
-            case LEFT:
-                direction = Direction.DOWN;
-                break;
+        if(direction > 0) {
+            direction -= 90;
+        } else {
+            direction = 270;
         }
     }
 
@@ -96,16 +75,16 @@ public class Ant {
      */
     public void move() {
         switch (direction) {
-            case UP:
+            case 0:
                 position.decreaseY();
                 break;
-            case RIGHT:
+            case 90:
                 position.increaseX();
                 break;
-            case DOWN:
+            case 180:
                 position.increaseY();
                 break;
-            case LEFT:
+            case 270:
                 position.decreaseX();
                 break;
         }
@@ -121,7 +100,7 @@ public class Ant {
     /**
      * @return Returns the direction the ant is facing.
      */
-    public Direction getDirection() {
+    public int getDirection() {
         return direction;
     }
 }
