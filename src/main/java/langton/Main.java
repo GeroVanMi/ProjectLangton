@@ -18,12 +18,19 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         // Create Data Objects
-        Algorithm algorithm = new Algorithm(150, 150);
+        Algorithm algorithm = new Algorithm(500, 500);
         // Add some example ants.
-        algorithm.addAnt(60, 60, Direction.RIGHT);
-        algorithm.addAnt(90, 60, Direction.LEFT);
-        algorithm.addAnt(60, 90, Direction.RIGHT);
-        algorithm.addAnt(90, 90, Direction.LEFT);
+        algorithm.addAnt(150, 140, Direction.DOWN);
+        algorithm.addAnt(140, 160, Direction.RIGHT);
+        algorithm.addAnt(160, 160, Direction.LEFT);
+        algorithm.addAnt(150, 140, Direction.DOWN);
+
+        /* Very interesting setup, ant catches another fleeing ant.
+        Algorithm algorithm = new Algorithm(300, 300);
+        algorithm.addAnt(150, 140, Direction.DOWN);
+        algorithm.addAnt(140, 160, Direction.RIGHT);
+        algorithm.addAnt(160, 160, Direction.LEFT);
+        */
 
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);

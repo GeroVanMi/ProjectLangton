@@ -50,8 +50,12 @@ public class PlaygroundController extends ViewController implements TickListener
 
             for(int i = -1; i < 2; i++) {
                 for(int j = -1; j < 2; j++) {
-                    playground.clearField(pos.getX() + i, pos.getY() + j);
-                    playground.drawField(pos.getX() + i, pos.getY() + j, algorithm.getMap().getFields()[pos.getX() + i][pos.getY() + j]);
+                    try {
+                        playground.clearField(pos.getX() + i, pos.getY() + j);
+                        playground.drawField(pos.getX() + i, pos.getY() + j, algorithm.getMap().getFields()[pos.getX() + i][pos.getY() + j]);
+                    } catch (ArrayIndexOutOfBoundsException exception) {
+                        // TODO: Handle exception
+                    }
                 }
             }
 

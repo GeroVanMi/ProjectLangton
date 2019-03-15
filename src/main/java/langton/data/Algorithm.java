@@ -46,8 +46,8 @@ public class Algorithm {
                 newField.brightenUp();
                 ant.changeDirection(newField);
             } catch (ArrayIndexOutOfBoundsException exception) {
-                // TODO: Increase Map size
-                ants.remove(ant);
+                // TODO: Increase Map size or remove ants
+                // ants.remove(ant); -> ConcurrentModificationException
             }
         }
         for(TickListener tickListener : tickListeners) {
