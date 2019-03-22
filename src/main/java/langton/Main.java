@@ -5,6 +5,8 @@ import javafx.stage.Stage;
 import langton.controllers.PlaygroundController;
 import langton.controllers.ScreensController;
 import langton.data.Algorithm;
+import langton.helpers.ResizeListener;
+import java.util.ArrayList;
 
 
 /**
@@ -15,7 +17,9 @@ import langton.data.Algorithm;
  */
 public class Main extends Application {
 
-    public void start(Stage primaryStage) throws Exception {
+    private ArrayList<ResizeListener> resizeListeners;
+
+    public void start(Stage primaryStage) /*throws Exception*/ {
         // Create Data Objects
         Algorithm algorithm = new Algorithm(100, 100);
         // Add some example ants.
@@ -38,5 +42,11 @@ public class Main extends Application {
 
         // Start the algorithm.
         algorithm.play();
+
+        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            for(ResizeListener resizeListener : resizeListeners) {
+                resizeListener.update();
+            }
+        });
     }
 }

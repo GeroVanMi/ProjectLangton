@@ -23,7 +23,7 @@ public class PlaygroundController extends ViewController implements TickListener
      * @param height The initial height of the window.
      */
     public PlaygroundController(double width, double height, Algorithm algorithm) {
-        this.playground = new Playground(width, height);
+        this.playground = new Playground(width, height, this);
         super.createView(playground);
         this.algorithm = algorithm;
         algorithm.addTickListener(this);
@@ -44,7 +44,7 @@ public class PlaygroundController extends ViewController implements TickListener
     /**
      *
      */
-    public void updatePlayground() {
+    private void updatePlayground() {
         for(Ant ant : algorithm.getAnts()) {
             Point pos = ant.getPosition();
 
@@ -57,6 +57,13 @@ public class PlaygroundController extends ViewController implements TickListener
 
             playground.drawAnt(ant);
         }
+    }
+
+    /**
+     *
+     */
+    public void handleCanvasClick(double x, double y) {
+        algorithm.addAnt((int)x, (int)y, 0);
     }
 
     /**

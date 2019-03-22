@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import langton.controllers.PlaygroundController;
 import langton.data.Ant;
 import langton.data.Field;
 import langton.data.Map;
@@ -29,6 +30,7 @@ public class Playground extends View {
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private double fieldWidth, fieldHeight;
+    private PlaygroundController controller;
 
     /**
      * This constructor instantiates a border pane and adds two style sheets to it.
@@ -36,11 +38,13 @@ public class Playground extends View {
      * It then derives the graphicsContext from the newly created canvas and stores the border pane in the scene.
      * @param width The initial width of the canvas.
      * @param height The initial height of the canvas.
+     * @param controller The viewcontroller that controls this view.
      */
-    public Playground(double width, double height) {
+    public Playground(double width, double height, PlaygroundController controller) {
         super();
         fieldHeight = 0;
         fieldWidth = 0;
+        this.controller = controller;
 
         pane = new BorderPane();
         pane.getStylesheets().add("/stylesheets/defaultStyles.css");
@@ -60,6 +64,9 @@ public class Playground extends View {
         pane.setCenter(canvas);
 
         super.addNodeToRoot(pane);
+
+        // Add an Ant on the click of a user.
+        canvas.setOnMouseClicked(event -> controller.handleCanvasClick(event.getX() / fieldWidth, event.getY() / fieldHeight));
     }
 
     /**
@@ -73,16 +80,25 @@ public class Playground extends View {
         // The height of a single rectangle.
         fieldHeight = canvas.getHeight() / rows;
 
-        for(int i = 0; i < map.getFields().length; i++) {
-            for(int j = 0; j < map.getFields()[i].length; j++) {
+        for(int x = 0; x < map.getFields().length; x++) {
+            for(int y = 0; y < map.getFields()[x].length; y++) {
                 // Draw the field background.
-                graphicsContext.setFill(map.getFields()[i][j].getColor());
-                graphicsContext.fillRect(i * fieldWidth, j * fieldHeight, fieldWidth, fieldHeight);
+                graphicsContext.setFill(map.getFields()[x][y].getColor());
+                graphicsContext.fillRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
                 // Draw the borders
-                graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 1));
-                graphicsContext.strokeRect(i * fieldWidth, j * fieldHeight, fieldWidth, fieldHeight);
+                drawBorder(x, y);
             }
         }
+    }
+
+    /**
+     * Draws a black border around a field.
+     * @param x The x coordinate of the field.
+     * @param y The y coordinate of the field.
+     */
+    private void drawBorder(int x, int y) {
+        graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 1));
+        graphicsContext.strokeRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
     }
 
     /**
@@ -120,25 +136,24 @@ public class Playground extends View {
     }
 
     /**
-     *
-     * @param x
-     * @param y
+     * Clears a field.
+     * @param x The x coordinate of the field.
+     * @param y The y coordinate of the field.
      */
     public void clearField(int x, int y) {
         graphicsContext.clearRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
     }
 
     /**
-     *
-     * @param x
-     * @param y
-     * @param field
+     * Draws a field (including the border) onto the canvas.
+     * @param x The x coordinate of the field.
+     * @param y The y coordinate of the field.
+     * @param field The field object (used for the color).
      */
     public void drawField(int x, int y, Field field) {
         graphicsContext.setFill(field.getColor());
         graphicsContext.fillRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
-        graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 1));
-        graphicsContext.strokeRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
+        drawBorder(x, y);
     }
 
     /**
