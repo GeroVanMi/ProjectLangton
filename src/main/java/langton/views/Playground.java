@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -50,10 +51,21 @@ public class Playground extends View {
         pane.getStylesheets().add("/stylesheets/defaultStyles.css");
         pane.getStylesheets().add("/stylesheets/playgroundStyles.css");
 
+        // Create content for the top box.
         Label titleLabel = new Label("Langton's Ant");
         titleLabel.setTextAlignment(TextAlignment.CENTER);
         titleLabel.getStyleClass().add("titleLabel");
-        topBox = new HBox(titleLabel);
+
+        Button settingsButton = new Button();
+        settingsButton.setOnAction(event -> {
+
+        });
+        settingsButton.getStyleClass().add("settingsButton");
+        settingsButton.setPrefSize(40, 40);
+
+        // Create the top box.
+        topBox = new HBox();
+        topBox.getChildren().addAll(titleLabel, settingsButton);
         topBox.getStyleClass().add("topBox");
         topBox.setAlignment(Pos.CENTER);
 
