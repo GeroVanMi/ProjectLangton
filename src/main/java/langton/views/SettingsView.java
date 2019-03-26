@@ -1,12 +1,14 @@
 package langton.views;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import langton.data.Settings;
 
 /**
@@ -17,6 +19,7 @@ import langton.data.Settings;
  */
 public class SettingsView {
     private Stage stage;
+    private BorderPane root;
     private GridPane contentPane;
     private CheckBox torusCheckBox, antRenderingCheckBox;
     private Settings settings;
@@ -30,11 +33,13 @@ public class SettingsView {
 
         contentPane = new GridPane();
         contentPane.getStyleClass().add("contentPane");
+        contentPane.setVgap(10);
+
+        root = new BorderPane(contentPane);
 
         this.createCheckBoxes();
         this.createButtons();
 
-        VBox root = new VBox(contentPane);
         root.getStyleClass().add("root");
         root.setPrefSize(300, 500);
         root.getStylesheets().add("stylesheets/settingsViewStyles.css");
@@ -68,6 +73,11 @@ public class SettingsView {
      *
      */
     private void createButtons() {
+        HBox footer = new HBox();
+        footer.setAlignment(Pos.CENTER_RIGHT);
+        footer.setSpacing(10);
+        root.setBottom(footer);
+
         Button submitButton = new Button("Submit");
         submitButton.setOnAction(event -> {
             this.applyChanges();
@@ -81,7 +91,8 @@ public class SettingsView {
         cancelButton.setOnAction(event -> {
             this.close();
         });
-        contentPane.addRow(2, cancelButton, submitButton, applyButton);
+
+        footer.getChildren().addAll(cancelButton, submitButton, applyButton);
     }
 
     /**
