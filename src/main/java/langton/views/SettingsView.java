@@ -1,8 +1,11 @@
 package langton.views;
 
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 /**
  * @author Gerome Wiss
@@ -17,7 +20,19 @@ public class SettingsView {
         root.getStylesheets().add("stylesheets/settingsViewStyles.css");
 
         // Do setup here -->
+        GridPane contentPane = new GridPane();
+        root.getChildren().add(contentPane);
 
+        // Checkbox to ask the user, whether he wants to use a torus as the map.
+        CheckBox torusCheckBox = new CheckBox();
+        Label torusLabel = new Label("Use Torus");
+        contentPane.addRow(0, torusCheckBox, torusLabel);
+
+        // Checkbox for drawing ant or not
+        CheckBox antRenderingCheckBox = new CheckBox();
+        antRenderingCheckBox.setSelected(true);
+        Label antRenderingLabel = new Label("Render ants");
+        contentPane.addRow(1, antRenderingCheckBox, antRenderingLabel);
         // <--
 
         Scene scene = new Scene(root);
