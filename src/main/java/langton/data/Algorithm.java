@@ -19,6 +19,7 @@ public class Algorithm {
     private Map map;
     private Timeline timeline;
     private ArrayList<TickListener> tickListeners;
+    private Settings settings;
 
     /**
      *
@@ -31,6 +32,7 @@ public class Algorithm {
         ants = new ArrayList<>();
         tickListeners = new ArrayList<>();
         this.createTimeline(100);
+        this.settings = new Settings(true, true);
     }
 
     /**
@@ -127,5 +129,9 @@ public class Algorithm {
      */
     public void clearTickListners() {
         tickListeners.clear();
+    }
+
+    public Settings getSettings() {
+        return settings;
     }
 }

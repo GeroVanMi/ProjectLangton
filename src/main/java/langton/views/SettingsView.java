@@ -6,6 +6,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import langton.data.Settings;
 
 /**
  * @author Gerome Wiss
@@ -15,7 +16,7 @@ public class SettingsView {
     private Stage stage;
     private VBox root;
 
-    public SettingsView() {
+    public SettingsView(Settings settings) {
         root = new VBox();
         root.getStylesheets().add("stylesheets/settingsViewStyles.css");
 
@@ -25,12 +26,17 @@ public class SettingsView {
 
         // Checkbox to ask the user, whether he wants to use a torus as the map.
         CheckBox torusCheckBox = new CheckBox();
+        if(settings.useTorus()) {
+            torusCheckBox.setSelected(true);
+        }
         Label torusLabel = new Label("Use Torus");
         contentPane.addRow(0, torusCheckBox, torusLabel);
 
         // Checkbox for drawing ant or not
         CheckBox antRenderingCheckBox = new CheckBox();
-        antRenderingCheckBox.setSelected(true);
+        if(settings.renderAnts()) {
+            antRenderingCheckBox.setSelected(true);
+        }
         Label antRenderingLabel = new Label("Render ants");
         contentPane.addRow(1, antRenderingCheckBox, antRenderingLabel);
         // <--

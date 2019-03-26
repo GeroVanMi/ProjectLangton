@@ -82,6 +82,10 @@ public class PlaygroundController extends ViewController implements TickListener
         return playground;
     }
 
+    public Algorithm getAlgorithm() {
+        return algorithm;
+    }
+
     /**
      * This method is called whenever the data in the algorithm changed in a significant way.
      * @see TickListener
