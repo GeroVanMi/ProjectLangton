@@ -58,7 +58,8 @@ public class Playground extends View {
 
         Button settingsButton = new Button();
         settingsButton.setOnAction(event -> {
-
+            SettingsView settingsView = new SettingsView();
+            settingsView.show();
         });
         settingsButton.getStyleClass().add("settingsButton");
         settingsButton.setPrefSize(40, 40);

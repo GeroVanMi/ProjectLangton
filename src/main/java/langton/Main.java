@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * @author Gerome Wiss
- * @version 16_02_2019
+ * @version 26_03_2019
  *
  * This class is called when a user starts the application. It acts as an initiator for many values.
  */
@@ -31,7 +31,7 @@ public class Main extends Application {
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);
 
-        // Settings for the window / primary stage
+        // SettingsView for the window / primary stage
         ScreensController screensController = new ScreensController(primaryStage, playgroundController);
 
         primaryStage.show();
