@@ -15,7 +15,7 @@ import langton.data.Settings;
  */
 public class SettingsView {
     private Stage stage;
-    private VBox root;
+    private GridPane contentPane;
     private CheckBox torusCheckBox, antRenderingCheckBox;
     private Settings settings;
 
@@ -26,13 +26,18 @@ public class SettingsView {
     public SettingsView(Settings settings) {
         this.settings = settings;
 
-        root = new VBox();
+        contentPane = new GridPane();
+        this.createCheckBoxes();
+        this.createButtons();
+
+        VBox root = new VBox(contentPane);
         root.getStylesheets().add("stylesheets/settingsViewStyles.css");
+        Scene scene = new Scene(root);
+        stage = new Stage();
+        stage.setScene(scene);
+    }
 
-        // Do setup here -->
-        GridPane contentPane = new GridPane();
-        root.getChildren().add(contentPane);
-
+    private void createCheckBoxes() {
         // Checkbox to ask the user, whether he wants to use a torus as the map.
         torusCheckBox = new CheckBox();
         if(settings.useTorus()) {
@@ -48,7 +53,9 @@ public class SettingsView {
         }
         Label antRenderingLabel = new Label("Render ants");
         contentPane.addRow(1, antRenderingCheckBox, antRenderingLabel);
+    }
 
+    private void createButtons() {
         Button submitButton = new Button("Submit");
         submitButton.setOnAction(event -> {
             this.applyChanges();
@@ -63,21 +70,19 @@ public class SettingsView {
             this.close();
         });
         contentPane.addRow(2, cancelButton, submitButton, applyButton);
-
-
-        // Finish setup here -->
-
-        Scene scene = new Scene(root);
-
-        stage = new Stage();
-        stage.setScene(scene);
     }
 
+    /**
+     * Applies the changes made in the settings menu.
+     */
     private void applyChanges() {
         this.settings.setRenderAnts(antRenderingCheckBox.isSelected());
         this.settings.setUseTorus(torusCheckBox.isSelected());
     }
 
+    /**
+     * Closes the settings window.
+     */
     private void close() {
         this.stage.close();
     }
