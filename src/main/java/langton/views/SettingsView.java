@@ -12,6 +12,8 @@ import langton.data.Settings;
 /**
  * @author Gerome Wiss
  * @version 26_03_2019
+ *
+ * TODO: Update JavaDoc
  */
 public class SettingsView {
     private Stage stage;
@@ -27,16 +29,23 @@ public class SettingsView {
         this.settings = settings;
 
         contentPane = new GridPane();
+        contentPane.getStyleClass().add("contentPane");
+
         this.createCheckBoxes();
         this.createButtons();
 
         VBox root = new VBox(contentPane);
+        root.getStyleClass().add("root");
+        root.setPrefSize(300, 500);
         root.getStylesheets().add("stylesheets/settingsViewStyles.css");
         Scene scene = new Scene(root);
         stage = new Stage();
         stage.setScene(scene);
     }
 
+    /**
+     *
+     */
     private void createCheckBoxes() {
         // Checkbox to ask the user, whether he wants to use a torus as the map.
         torusCheckBox = new CheckBox();
@@ -55,6 +64,9 @@ public class SettingsView {
         contentPane.addRow(1, antRenderingCheckBox, antRenderingLabel);
     }
 
+    /**
+     *
+     */
     private void createButtons() {
         Button submitButton = new Button("Submit");
         submitButton.setOnAction(event -> {
