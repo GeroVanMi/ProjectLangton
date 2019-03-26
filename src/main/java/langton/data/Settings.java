@@ -1,5 +1,9 @@
 package langton.data;
 
+/**
+ * @author Gerome Wiss
+ * @version 26_03_2019
+ */
 public class Settings {
     private boolean useTorus, renderAnts;
 
