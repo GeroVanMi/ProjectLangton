@@ -31,8 +31,8 @@ public class Algorithm {
         map.generateMap();
         ants = new ArrayList<>();
         tickListeners = new ArrayList<>();
-        this.createTimeline(100);
-        this.settings = new Settings(true, true);
+        this.createTimeline(5);
+        this.settings = new Settings(true, false);
     }
 
     /**
@@ -42,6 +42,21 @@ public class Algorithm {
     public void tick() {
         for(Ant ant : ants) {
             ant.move();
+
+            if(settings.useTorus()) {
+                int x = ant.getPosition().getX(), y = ant.getPosition().getY();
+                if(x > map.getRowsCount()) {
+                    ant.getPosition().setX(x % map.getColumnsCount());
+                } else if(x < 0) {
+                    ant.getPosition().setX(map.getColumnsCount());
+                }
+                if(y > map.getColumnsCount()) {
+                    ant.getPosition().setY(y % map.getRowsCount());
+                } else if(y < 0) {
+                    ant.getPosition().setY(map.getRowsCount());
+                }
+            }
+
             Field newField = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
             newField.swapColor();
             ant.changeDirection(newField);

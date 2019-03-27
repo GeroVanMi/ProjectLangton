@@ -54,8 +54,9 @@ public class PlaygroundController extends ViewController implements TickListener
                     playground.drawField(pos.getX() + i, pos.getY() + j, algorithm.getMap().getFields()[pos.getX() + i][pos.getY() + j]);
                 }
             }
-
-            playground.drawAnt(ant);
+            if(algorithm.getSettings().renderAnts()) {
+                playground.drawAnt(ant);
+            }
         }
     }
 
