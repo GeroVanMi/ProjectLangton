@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import langton.controllers.SettingsController;
 
+/**
+ * @author Gerome Wiss
+ * @version 28_03_2019
+ */
 public class ConfirmationBox {
 
     private Stage stage;

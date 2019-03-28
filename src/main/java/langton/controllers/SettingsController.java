@@ -4,6 +4,10 @@ import langton.data.Settings;
 import langton.views.settings.ConfirmationBox;
 import langton.views.settings.SettingsView;
 
+/**
+ * @author Gerome Wiss
+ * @version 28_03_2019
+ */
 public class SettingsController {
 
     private SettingsView view;

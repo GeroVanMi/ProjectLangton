@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * @author Gerome Wiss
- * @version 26_03_2019
+ * @version 28_03_2019
  *
  * This class is called when a user starts the application. It acts as an initiator for many values.
  */
@@ -21,9 +21,9 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) /*throws Exception*/ {
         // Create Data Objects
-        Algorithm algorithm = new Algorithm(100, 100, 100, true, false);
+        Algorithm algorithm = new Algorithm(500, 500, 5, true, false);
         // Add some example ants.
-        algorithm.addAnt(25, 25, 0);
+        algorithm.addAnt(100, 100, 0);
 
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);
