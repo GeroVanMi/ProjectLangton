@@ -1,4 +1,4 @@
-package langton.views;
+package langton.views.settings;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,12 +9,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import langton.controllers.SettingsController;
 import langton.data.Settings;
 
 /**
  * @author Gerome Wiss
- * @version 26_03_2019
+ * @version 28_03_2019
  *
  * TODO: Update JavaDoc
  */
@@ -24,13 +24,15 @@ public class SettingsView {
     private GridPane contentPane;
     private CheckBox torusCheckBox, antRenderingCheckBox;
     private Settings settings;
+    private SettingsController controller;
 
     /**
      *
      * @param settings
      */
-    public SettingsView(Settings settings) {
+    public SettingsView(Settings settings, SettingsController controller) {
         this.settings = settings;
+        this.controller = controller;
 
         contentPane = new GridPane();
         contentPane.getStyleClass().add("contentPane");
@@ -47,10 +49,7 @@ public class SettingsView {
         Scene scene = new Scene(root);
         stage = new Stage();
         stage.setScene(scene);
-        stage.setOnCloseRequest(onExitEvent -> {
-            // TODO: Check for unsaved changes. Skip this part if there are none.
-            this.createConfirmationBox();
-        });
+        stage.setOnCloseRequest(onExitEvent -> controller.handleOnCloseRequest());
     }
 
     /**
@@ -84,70 +83,19 @@ public class SettingsView {
         root.setBottom(footer);
 
         Button submitButton = new Button("Submit");
-        submitButton.setOnAction(event -> {
-            this.applyChanges();
-            this.close();
-        });
+        submitButton.setOnAction(event -> controller.handleSubmitButtonClick());
         Button applyButton = new Button("Apply");
-        applyButton.setOnAction(event -> {
-            this.applyChanges();
-        });
+        applyButton.setOnAction(event -> controller.handleApplyButtonClick());
         Button cancelButton = new Button("Cancel");
-        cancelButton.setOnAction(event -> {
-            this.close();
-        });
+        cancelButton.setOnAction(event -> controller.handleCancelButtonClick());
 
         footer.getChildren().addAll(cancelButton, submitButton, applyButton);
-    }
-
-    private void createConfirmationBox() {
-        Stage confirmationStage = new Stage();
-
-        // --------------------------------------------------------------------------
-        // Credit to Shardendu from StackOverflow
-        // https://stackoverflow.com/questions/8341305/how-to-remove-javafx-stage-buttons-minimize-maximize-close
-        // --------------------------------------------------------------------------
-        confirmationStage.initStyle(StageStyle.UNDECORATED);
-
-        BorderPane confirmationRoot = new BorderPane();
-        confirmationRoot.getStylesheets().add("stylesheets/settingsViewStyles.css");
-        confirmationRoot.getStyleClass().add("root");
-
-        String confirmationQuestion = "You have unsaved changes, do you want to save them?";
-        Label confirmationQuestionLabel = new Label(confirmationQuestion);
-        confirmationRoot.setCenter(confirmationQuestionLabel);
-
-        Button saveButton = new Button("Save");
-        saveButton.setOnAction(onClickEvent -> {
-            applyChanges();
-            confirmationStage.close();
-        });
-        Button discardButton = new Button("Discard");
-        discardButton.setOnAction(onClickEvent -> {
-            confirmationStage.close();
-        });
-        HBox confirmButtonsHBox = new HBox(saveButton, discardButton);
-        confirmButtonsHBox.setSpacing(10);
-        confirmationRoot.setBottom(confirmButtonsHBox);
-
-        Scene confirmationScene = new Scene(confirmationRoot);
-        confirmationStage.setScene(confirmationScene);
-
-        confirmationStage.showAndWait();
-    }
-
-    /**
-     * Applies the changes made in the settings menu.
-     */
-    private void applyChanges() {
-        this.settings.setRenderAnts(antRenderingCheckBox.isSelected());
-        this.settings.setUseTorus(torusCheckBox.isSelected());
     }
 
     /**
      * Closes the settings window.
      */
-    private void close() {
+    public void close() {
         this.stage.close();
     }
 
@@ -156,5 +104,13 @@ public class SettingsView {
      */
     public void show() {
         stage.show();
+    }
+
+    public CheckBox getTorusCheckBox() {
+        return torusCheckBox;
+    }
+
+    public CheckBox getAntRenderingCheckBox() {
+        return antRenderingCheckBox;
     }
 }

@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import langton.controllers.PlaygroundController;
+import langton.controllers.SettingsController;
 import langton.data.Ant;
 import langton.data.Field;
 import langton.data.Map;
@@ -20,7 +21,7 @@ import langton.helpers.Point;
 
 /**
  * @author Gerome Wiss
- * @version 26_03_2019
+ * @version 28_03_2019
  *
  * This class holds all the information related to the visual representation of the fields and ants on it.
  * It displays the playground in a border pane.
@@ -58,8 +59,7 @@ public class Playground extends View {
 
         Button settingsButton = new Button();
         settingsButton.setOnAction(event -> {
-            SettingsView settingsView = new SettingsView(controller.getAlgorithm().getSettings());
-            settingsView.show();
+            SettingsController settingsController = new SettingsController(controller.getAlgorithm().getSettings());
         });
         settingsButton.getStyleClass().add("settingsButton");
         settingsButton.setPrefSize(40, 40);
