@@ -102,6 +102,11 @@ public class SettingsView {
 
     private void createConfirmationBox() {
         Stage confirmationStage = new Stage();
+
+        // --------------------------------------------------------------------------
+        // Credit to Shardendu from StackOverflow
+        // https://stackoverflow.com/questions/8341305/how-to-remove-javafx-stage-buttons-minimize-maximize-close
+        // --------------------------------------------------------------------------
         confirmationStage.initStyle(StageStyle.UNDECORATED);
 
         BorderPane confirmationRoot = new BorderPane();
