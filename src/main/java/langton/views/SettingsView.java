@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import langton.data.Settings;
 
 /**
@@ -46,6 +47,10 @@ public class SettingsView {
         Scene scene = new Scene(root);
         stage = new Stage();
         stage.setScene(scene);
+        stage.setOnCloseRequest(onExitEvent -> {
+            // TODO: Check for unsaved changes. Skip this part if there are none.
+            this.createConfirmationBox();
+        });
     }
 
     /**
@@ -93,6 +98,37 @@ public class SettingsView {
         });
 
         footer.getChildren().addAll(cancelButton, submitButton, applyButton);
+    }
+
+    private void createConfirmationBox() {
+        Stage confirmationStage = new Stage();
+        confirmationStage.initStyle(StageStyle.UNDECORATED);
+
+        BorderPane confirmationRoot = new BorderPane();
+        confirmationRoot.getStylesheets().add("stylesheets/settingsViewStyles.css");
+        confirmationRoot.getStyleClass().add("root");
+
+        String confirmationQuestion = "You have unsaved changes, do you want to save them?";
+        Label confirmationQuestionLabel = new Label(confirmationQuestion);
+        confirmationRoot.setCenter(confirmationQuestionLabel);
+
+        Button saveButton = new Button("Save");
+        saveButton.setOnAction(onClickEvent -> {
+            applyChanges();
+            confirmationStage.close();
+        });
+        Button discardButton = new Button("Discard");
+        discardButton.setOnAction(onClickEvent -> {
+            confirmationStage.close();
+        });
+        HBox confirmButtonsHBox = new HBox(saveButton, discardButton);
+        confirmButtonsHBox.setSpacing(10);
+        confirmationRoot.setBottom(confirmButtonsHBox);
+
+        Scene confirmationScene = new Scene(confirmationRoot);
+        confirmationStage.setScene(confirmationScene);
+
+        confirmationStage.showAndWait();
     }
 
     /**

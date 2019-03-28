@@ -21,7 +21,7 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) /*throws Exception*/ {
         // Create Data Objects
-        Algorithm algorithm = new Algorithm(100, 100, 1, true, false);
+        Algorithm algorithm = new Algorithm(100, 100, 1000, true, false);
         // Add some example ants.
         algorithm.addAnt(25, 25, 0);
 
