@@ -39,7 +39,7 @@ public class Algorithm {
      * This method causes all the ants to move and the fields to change color when an ant moves onto them.
      * It also notifies all tick listeners, so that they can update their GUI.
      */
-    public void tick() {
+    private void tick() {
         for(Ant ant : ants) {
             ant.move();
             //                      50                      100
@@ -58,14 +58,10 @@ public class Algorithm {
                     ant.getPosition().setY(map.getColumnsCount() - 2);
                 }
             }
-            Field newField = null;
-            try {
-                newField = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
-            } catch (ArrayIndexOutOfBoundsException ex) {
-                System.out.println(ant.getPosition().getX() + " out of " + map.getRowsCount() + " / " + ant.getPosition().getY() + " out of " + map.getColumnsCount());
-            }
-            newField.swapColor();
-            ant.changeDirection(newField);
+
+            Field fieldAntAt = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
+            fieldAntAt.swapColor();
+            ant.changeDirection(fieldAntAt);
         }
         for(TickListener tickListener : tickListeners) {
             tickListener.update();
@@ -76,7 +72,7 @@ public class Algorithm {
      * This method instantiates a new timeline object.
      * @param intervalMillis The amount of time that passes between two cycles in milliseconds.
      */
-    public void createTimeline(int intervalMillis) {
+    private void createTimeline(int intervalMillis) {
         this.timeline = new Timeline(new KeyFrame(Duration.millis(intervalMillis), e -> this.tick()));
         this.timeline.setCycleCount(Timeline.INDEFINITE);
     }

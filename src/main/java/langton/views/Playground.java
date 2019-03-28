@@ -59,6 +59,7 @@ public class Playground extends View {
 
         Button settingsButton = new Button();
         settingsButton.setOnAction(event -> {
+            // TODO: Replace with controller.handleSettingsButtonClick()
             SettingsController settingsController = new SettingsController(controller.getAlgorithm().getSettings());
         });
         settingsButton.getStyleClass().add("settingsButton");

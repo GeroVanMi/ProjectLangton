@@ -5,7 +5,7 @@ import langton.helpers.Point;
 
 /**
  * @author Gerome Wiss
- * @version 16_02_2019
+ * @version 28_03_2019
  *
  * This class holds all information about a single ant on the field.
  * It provides methods to move the ant around and to change the direction it's facing.
@@ -41,7 +41,7 @@ public class Ant {
     /**
      *
      */
-    public void turnRight() {
+    private void turnRight() {
         if(direction < 270) {
             direction += 90;
         } else {
@@ -53,7 +53,7 @@ public class Ant {
     /**
      *
      */
-    public void turnLeft() {
+    private void turnLeft() {
         if(direction > 0) {
             direction -= 90;
         } else {

@@ -55,17 +55,17 @@ public class SettingsController {
         confirmationBox.close();
     }
 
-    public void displayConfirmationBox() {
+    private void displayConfirmationBox() {
         confirmationBox = new ConfirmationBox(this);
         confirmationBox.showAndWait();
     }
 
-    public void applyChanges() {
+    private void applyChanges() {
         settings.setUseTorus(useTorus());
         settings.setRenderAnts(renderAnts());
     }
 
-    public boolean hasUnsavedChanges() {
+    private boolean hasUnsavedChanges() {
         boolean hasUnsavedChanges = false;
         if(settings.useTorus() != useTorus()) {
             hasUnsavedChanges = true;
