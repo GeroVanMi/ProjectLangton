@@ -39,7 +39,7 @@ public class Ant {
     }
 
     /**
-     * Temporary solution! To be replaced with degrees.
+     *
      */
     public void turnRight() {
         if(direction < 270) {
@@ -51,7 +51,7 @@ public class Ant {
 
 
     /**
-     * Temporary solution! To be replaced by degrees.
+     *
      */
     public void turnLeft() {
         if(direction > 0) {

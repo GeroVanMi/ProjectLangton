@@ -26,13 +26,13 @@ public class Algorithm {
      * @param rows The initial amount of rows that are to be displayed.
      * @param columns The initial amount of columns that are to be displayed.
      */
-    public Algorithm(int rows, int columns) {
+    public Algorithm(int rows, int columns, int intervalMillis, boolean useTorus, boolean renderAnts) {
         this.map = new Map(rows, columns);
         map.generateMap();
         ants = new ArrayList<>();
         tickListeners = new ArrayList<>();
-        this.createTimeline(5);
-        this.settings = new Settings(true, false);
+        this.createTimeline(intervalMillis);
+        this.settings = new Settings(useTorus, renderAnts);
     }
 
     /**
@@ -42,22 +42,27 @@ public class Algorithm {
     public void tick() {
         for(Ant ant : ants) {
             ant.move();
-
+            //                      50                      100
+            //System.out.println(map.getRowsCount() + " " + map.getColumnsCount());
             if(settings.useTorus()) {
                 int x = ant.getPosition().getX(), y = ant.getPosition().getY();
-                if(x > map.getRowsCount()) {
-                    ant.getPosition().setX(x % map.getColumnsCount());
+                if(x > map.getRowsCount() - 1) {
+                    ant.getPosition().setX(x % (map.getRowsCount() - 1));
                 } else if(x < 0) {
-                    ant.getPosition().setX(map.getColumnsCount());
+                    ant.getPosition().setX(map.getRowsCount() - 1);
                 }
-                if(y > map.getColumnsCount()) {
-                    ant.getPosition().setY(y % map.getRowsCount());
+                if(y > (map.getColumnsCount() - 1)) {
+                    ant.getPosition().setY(y % (map.getColumnsCount() - 1));
                 } else if(y < 0) {
-                    ant.getPosition().setY(map.getRowsCount());
+                    ant.getPosition().setY(map.getColumnsCount() - 1);
                 }
             }
-
-            Field newField = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
+            Field newField = null;
+            try {
+                newField = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                System.out.println(ant.getPosition().getX() + " out of " + map.getRowsCount() + " / " + ant.getPosition().getY() + " out of " + map.getColumnsCount());
+            }
             newField.swapColor();
             ant.changeDirection(newField);
         }

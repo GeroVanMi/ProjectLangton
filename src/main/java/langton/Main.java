@@ -21,9 +21,9 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) /*throws Exception*/ {
         // Create Data Objects
-        Algorithm algorithm = new Algorithm(200, 200);
+        Algorithm algorithm = new Algorithm(100, 100, 1, true, false);
         // Add some example ants.
-        algorithm.addAnt(5, 25, 0);
+        algorithm.addAnt(25, 25, 0);
 
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);
