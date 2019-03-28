@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import langton.controllers.PlaygroundController;
+import langton.controllers.SettingsController;
 import langton.data.Ant;
 import langton.data.Field;
 import langton.data.Map;
@@ -19,7 +21,7 @@ import langton.helpers.Point;
 
 /**
  * @author Gerome Wiss
- * @version 16_02_2019
+ * @version 28_03_2019
  *
  * This class holds all the information related to the visual representation of the fields and ants on it.
  * It displays the playground in a border pane.
@@ -50,10 +52,22 @@ public class Playground extends View {
         pane.getStylesheets().add("/stylesheets/defaultStyles.css");
         pane.getStylesheets().add("/stylesheets/playgroundStyles.css");
 
+        // Create content for the top box.
         Label titleLabel = new Label("Langton's Ant");
         titleLabel.setTextAlignment(TextAlignment.CENTER);
         titleLabel.getStyleClass().add("titleLabel");
-        topBox = new HBox(titleLabel);
+
+        Button settingsButton = new Button();
+        settingsButton.setOnAction(event -> {
+            // TODO: Replace with controller.handleSettingsButtonClick()
+            SettingsController settingsController = new SettingsController(controller.getAlgorithm().getSettings());
+        });
+        settingsButton.getStyleClass().add("settingsButton");
+        settingsButton.setPrefSize(40, 40);
+
+        // Create the top box.
+        topBox = new HBox();
+        topBox.getChildren().addAll(titleLabel, settingsButton);
         topBox.getStyleClass().add("topBox");
         topBox.setAlignment(Pos.CENTER);
 

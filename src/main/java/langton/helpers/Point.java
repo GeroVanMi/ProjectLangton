@@ -6,6 +6,8 @@ package langton.helpers;
  *
  * This helper-class holds two values to display a Point in a coordinate system.
  * @see langton.data.Ant
+ *
+ * TODO: Update JavaDoc
  */
 public class Point {
     private int x, y;
@@ -59,5 +61,21 @@ public class Point {
      */
     public void decreaseY() {
         this.y--;
+    }
+
+    /**
+     *
+     * @param x
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     *
+     * @param y
+     */
+    public void setY(int y) {
+        this.y = y;
     }
 }
