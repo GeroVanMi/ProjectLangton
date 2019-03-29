@@ -18,16 +18,23 @@ public class SettingsAntController { //Date geh und Date neh im Controller! Alle
     }
 
     public void handleSettingsAnt(ActionEvent event) {
-        String textRed = settingsAntView.getRedTextField().getText();
-        String textGreen = settingsAntView.getGreenTextField().getText();
-        String textBlue = settingsAntView.getBlueTextField().getText();
-
-        double doubleRed = Double.parseDouble(textRed);
-        double doubleGreen = Double.parseDouble(textGreen);
-        double doubleBlue = Double.parseDouble(textBlue);
-
-        if (doubleRed > 255.0 || doubleGreen > 255.0 || doubleBlue > 255.0) {
+        if(settingsAntView.getRedTextField().getText().isEmpty() ||
+                settingsAntView.getBlueTextField().getText().isEmpty() ||
+                settingsAntView.getGreenTextField().getText().isEmpty()) {
+            // Inform the user that one of the fields is empty
             showAlert();
+        } else {
+            String textRed = settingsAntView.getRedTextField().getText();
+            String textGreen = settingsAntView.getGreenTextField().getText();
+            String textBlue = settingsAntView.getBlueTextField().getText();
+
+            double doubleRed = Double.parseDouble(textRed);
+            double doubleGreen = Double.parseDouble(textGreen);
+            double doubleBlue = Double.parseDouble(textBlue);
+
+            if (doubleRed > 255.0 || doubleGreen > 255.0 || doubleBlue > 255.0) {
+                showAlert();
+            }
         }
 
     }
