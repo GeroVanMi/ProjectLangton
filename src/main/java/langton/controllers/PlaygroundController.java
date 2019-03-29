@@ -4,6 +4,7 @@ import langton.data.Algorithm;
 import langton.data.Ant;
 import langton.helpers.TickListener;
 import langton.views.Playground;
+import langton.views.SettingsAntView;
 
 /**
  * @author Gerome Wiss
@@ -64,6 +65,7 @@ public class PlaygroundController extends ViewController implements TickListener
      *
      */
     public void handleCanvasClick(double x, double y) {
+        SettingsAntController settingsAntController = new SettingsAntController();
         algorithm.addAnt((int) x, (int) y, 0);
     }
 

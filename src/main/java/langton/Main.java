@@ -28,7 +28,7 @@ public class Main extends Application {
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);
 
-        // SettingsAnt for the window / primary stage
+        // SettingsAntView for the window / primary stage
         primaryStage.setScene(playgroundController.getPlayground().getScene());
         primaryStage.setMaximized(true);
         primaryStage.setOnCloseRequest(e -> System.exit(0));

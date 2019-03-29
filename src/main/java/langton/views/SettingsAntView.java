@@ -7,28 +7,35 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import langton.controllers.SettingsAntController;
 
+/**
+ * @author Natalie Breu
+ * @version 29_03_2019
+ * <p>
+ * TODO: Update JavaDoc
+ */
 
-public class SettingsAnt {
+public class SettingsAntView {
+
     private Scene scene;
     private BorderPane pane;
     private double width, heigth;
     private Stage stage;
     private ComboBox comboBox;
-    private Color red;
-    private Color blue;
-    private Color yellow;
+    private Color red, blue, yellow;
+    private TextField redTextField, greenTextField, blueTextField;
+    private SettingsAntController controller;
 
-    public SettingsAnt() {
-        red = new Color(1, 0,0,1);
-        blue = new Color(0,0,1,1);
-        yellow = new Color(0,1,0,1);
+    public SettingsAntView() {
+        controller = new SettingsAntController();
+        red = new Color(1, 0, 0, 1);
+        blue = new Color(0, 0, 1, 1);
+        yellow = new Color(0, 1, 0, 1);
 
         width = 400.0;
         heigth = 400.0;
@@ -37,17 +44,16 @@ public class SettingsAnt {
         stage.setWidth(width);
         stage.setHeight(heigth);
 
-        stage.show();
         comboBox = new ComboBox();
         GridPane colorsGridPane = new GridPane();
         colorsGridPane.getStylesheets().add("/stylesheets/settingsAntStyles.css");
 
 
-        TextField redTextField = new TextField();
-        TextField greenTextField = new TextField();
-        TextField blueTextField = new TextField();
+        redTextField = new TextField();
+        greenTextField = new TextField();
+        blueTextField = new TextField();
 
-        Label titleLabel = new Label("SettingsAnt");
+        Label titleLabel = new Label("SettingsAntView");
         titleLabel.setTextAlignment(TextAlignment.CENTER);
 
 
@@ -65,7 +71,11 @@ public class SettingsAnt {
         colorsGridPane.setHgap(25);
         colorsGridPane.setVgap(10);
 
-        Button button2 = new Button("Accept");
+        Button buttonSaveSettingsField = new Button("Save");
+        //Das zwüschet de {} isch Funktion, wo de Parameter (event) vorne mitgeh wird
+        buttonSaveSettingsField.setOnAction(event -> {
+            controller.handleSettingsAnt(event);
+        });
 
         VBox root = new VBox(titleLabel);
         root.getStylesheets().add("/stylesheets/defaultStyles.css");
@@ -74,14 +84,24 @@ public class SettingsAnt {
         scene = new Scene(root);
         root.getChildren().add(colorsGridPane);
 
-       // root.getChildren().add(comboBox);
-        root.getChildren().add(button2);
+        // root.getChildren().add(comboBox);
+        root.getChildren().add(buttonSaveSettingsField);
         stage.setScene(scene);
     }
 
-    public void addComponents() {
-
+    public void showAndWait() {
+        stage.showAndWait();
     }
 
+    public TextField getRedTextField() {
+        return redTextField;
+    }
 
+    public TextField getGreenTextField() {
+        return greenTextField;
+    }
+
+    public TextField getBlueTextField() {
+        return blueTextField;
+    }
 }
