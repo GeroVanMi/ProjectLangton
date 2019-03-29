@@ -31,8 +31,8 @@ public class SettingsAntView {
     private TextField redTextField, greenTextField, blueTextField;
     private SettingsAntController controller;
 
-    public SettingsAntView() {
-        controller = new SettingsAntController();
+    public SettingsAntView(SettingsAntController settingsAntController) {
+        this.controller = settingsAntController;
         red = new Color(1, 0, 0, 1);
         blue = new Color(0, 0, 1, 1);
         yellow = new Color(0, 1, 0, 1);

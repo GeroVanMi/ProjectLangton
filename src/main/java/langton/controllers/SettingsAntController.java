@@ -13,22 +13,26 @@ public class SettingsAntController { //Date geh und Date neh im Controller! Alle
     private SettingsAntView settingsAntView;
 
     public SettingsAntController() {
-        settingsAntView = new SettingsAntView();
+        settingsAntView = new SettingsAntView(this);
         settingsAntView.showAndWait();
     }
 
     public void handleSettingsAnt(ActionEvent event) {
-        double textRed = Double.parseDouble(settingsAntView.getRedTextField().getText());
-        double textGreen = Double.parseDouble(settingsAntView.getGreenTextField().getText());
-        double textBlue = Double.parseDouble(settingsAntView.getBlueTextField().getText());
+        String textRed = settingsAntView.getRedTextField().getText();
+        String textGreen = settingsAntView.getGreenTextField().getText();
+        String textBlue = settingsAntView.getBlueTextField().getText();
 
-        if (textRed > 255.0 || textGreen > 255.0 || textBlue > 255.0) {
-            showAlertWithHeaderText();
+        double doubleRed = Double.parseDouble(textRed);
+        double doubleGreen = Double.parseDouble(textGreen);
+        double doubleBlue = Double.parseDouble(textBlue);
+
+        if (doubleRed > 255.0 || doubleGreen > 255.0 || doubleBlue > 255.0) {
+            showAlert();
         }
 
     }
 
-    private void showAlertWithHeaderText() {
+    private void showAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Test Connection");
         alert.setHeaderText("Results:");
