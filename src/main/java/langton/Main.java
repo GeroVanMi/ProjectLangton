@@ -20,10 +20,10 @@ public class Main extends Application {
     private ArrayList<ResizeListener> resizeListeners;
 
     public void start(Stage primaryStage) /*throws Exception*/ {
+
+        resizeListeners = new ArrayList<>();
         // Create Data Objects
-        Algorithm algorithm = new Algorithm(500, 500, 5, true, false);
-        // Add some example ants.
-        algorithm.addAnt(100, 100, 0);
+        Algorithm algorithm = new Algorithm(150, 150, 10, true, false);
 
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);

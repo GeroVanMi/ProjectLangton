@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * @author Gerome Wiss
- * @version 28_03_2019
+ * @version 29_03_2019
  *
  * This class manages all the data about the ants and the map.
  */
@@ -47,15 +47,18 @@ public class Algorithm {
             if(settings.useTorus()) {
                 int x = ant.getPosition().getX(), y = ant.getPosition().getY();
                 if(x > map.getRowsCount() - 1) {
-                    ant.getPosition().setX(x % (map.getRowsCount()));
+                    ant.getPosition().setX(x % map.getRowsCount());
+                    ant.getPosition().setY(y % map.getColumnsCount());
                 } else if(x < 0) {
-                    ant.getPosition().setX(map.getRowsCount() - 2);
-                    System.out.println(map.getRowsCount());
+                    ant.getPosition().setX(map.getRowsCount() - 1);
+                    ant.getPosition().setY(y % map.getColumnsCount());
                 }
                 if(y > (map.getColumnsCount() - 1)) {
                     ant.getPosition().setY(y % (map.getColumnsCount()));
+                    ant.getPosition().setX(x % map.getRowsCount());
                 } else if(y < 0) {
-                    ant.getPosition().setY(map.getColumnsCount() - 2);
+                    ant.getPosition().setY(map.getColumnsCount() - 1);
+                    ant.getPosition().setX(x % map.getRowsCount());
                 }
             }
 

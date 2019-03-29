@@ -2,13 +2,12 @@ package langton.controllers;
 
 import langton.data.Algorithm;
 import langton.data.Ant;
-import langton.helpers.Point;
 import langton.helpers.TickListener;
 import langton.views.Playground;
 
 /**
  * @author Gerome Wiss
- * @version 16_02_2019
+ * @version 29_03_2019
  * <p>
  * This class controls all changes that happen on the corresponding playground object.
  * It handles inputs from the user and changes the view according to the changes in the data.
@@ -47,17 +46,14 @@ public class PlaygroundController extends ViewController implements TickListener
      */
     private void updatePlayground() {
         for (Ant ant : algorithm.getAnts()) {
-            Point pos = ant.getPosition();
-            for (int i = -1; i < 2; i++) {
-                for (int j = -1; j < 2; j++) {
-                    playground.clearField(pos.getX() + i, pos.getY() + j);
-                    try {
-                        playground.drawField(pos.getX() + i, pos.getY() + j, algorithm.getMap().getFields()[pos.getX() + i][pos.getY() + j]);
-                    } catch (ArrayIndexOutOfBoundsException ex) {
-                        // IGNORED
-                    }
-                }
-            }
+            int lastX = ant.getLastPosition().getX(), lastY = ant.getLastPosition().getY();
+            int currentX = ant.getPosition().getX(), currentY = ant.getPosition().getY();
+
+            playground.clearField(lastX, lastY);
+            playground.drawField(lastX, lastY, algorithm.getMap().getFields()[lastX][lastY]);
+
+            playground.clearField(currentX, currentY);
+            playground.drawField(currentX, currentY, algorithm.getMap().getFields()[currentX][currentY]);
             if (algorithm.getSettings().renderAnts()) {
                 playground.drawAnt(ant);
             }
