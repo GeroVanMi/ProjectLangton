@@ -3,7 +3,6 @@ package langton.data;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import langton.helpers.Direction;
 import langton.helpers.Point;
 import langton.helpers.TickListener;
 
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * @author Gerome Wiss
- * @version 16_02_2019
+ * @version 29_03_2019
  *
  * This class manages all the data about the ants and the map.
  */
@@ -20,30 +19,52 @@ public class Algorithm {
     private Map map;
     private Timeline timeline;
     private ArrayList<TickListener> tickListeners;
+    private Settings settings;
 
     /**
      *
      * @param rows The initial amount of rows that are to be displayed.
      * @param columns The initial amount of columns that are to be displayed.
      */
-    public Algorithm(int rows, int columns) {
+    public Algorithm(int rows, int columns, int intervalMillis, boolean useTorus, boolean renderAnts) {
         this.map = new Map(rows, columns);
         map.generateMap();
         ants = new ArrayList<>();
         tickListeners = new ArrayList<>();
-        this.createTimeline(100);
+        this.createTimeline(intervalMillis);
+        this.settings = new Settings(useTorus, renderAnts);
     }
 
     /**
      * This method causes all the ants to move and the fields to change color when an ant moves onto them.
      * It also notifies all tick listeners, so that they can update their GUI.
      */
-    public void tick() {
+    private void tick() {
         for(Ant ant : ants) {
             ant.move();
-            Field newField = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
-            newField.swapColor();
-            ant.changeDirection(newField);
+            //                      50                      100
+            //System.out.println(map.getRowsCount() + " " + map.getColumnsCount());
+            if(settings.useTorus()) {
+                int x = ant.getPosition().getX(), y = ant.getPosition().getY();
+                if(x > map.getRowsCount() - 1) {
+                    ant.getPosition().setX(x % map.getRowsCount());
+                    ant.getPosition().setY(y % map.getColumnsCount());
+                } else if(x < 0) {
+                    ant.getPosition().setX(map.getRowsCount() - 1);
+                    ant.getPosition().setY(y % map.getColumnsCount());
+                }
+                if(y > (map.getColumnsCount() - 1)) {
+                    ant.getPosition().setY(y % (map.getColumnsCount()));
+                    ant.getPosition().setX(x % map.getRowsCount());
+                } else if(y < 0) {
+                    ant.getPosition().setY(map.getColumnsCount() - 1);
+                    ant.getPosition().setX(x % map.getRowsCount());
+                }
+            }
+
+            Field fieldAntAt = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
+            fieldAntAt.swapColor();
+            ant.changeDirection(fieldAntAt);
         }
         for(TickListener tickListener : tickListeners) {
             tickListener.update();
@@ -54,7 +75,7 @@ public class Algorithm {
      * This method instantiates a new timeline object.
      * @param intervalMillis The amount of time that passes between two cycles in milliseconds.
      */
-    public void createTimeline(int intervalMillis) {
+    private void createTimeline(int intervalMillis) {
         this.timeline = new Timeline(new KeyFrame(Duration.millis(intervalMillis), e -> this.tick()));
         this.timeline.setCycleCount(Timeline.INDEFINITE);
     }
@@ -89,7 +110,7 @@ public class Algorithm {
      * @param y The starting y coordinate of the new ant.
      * @param direction The direction the ant is initially facing.
      */
-    public void addAnt(int x, int y, Direction direction) {
+    public void addAnt(int x, int y, int direction) {
         ants.add(new Ant(new Point(x, y), direction));
     }
 
@@ -128,5 +149,9 @@ public class Algorithm {
      */
     public void clearTickListners() {
         tickListeners.clear();
+    }
+
+    public Settings getSettings() {
+        return settings;
     }
 }

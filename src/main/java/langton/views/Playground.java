@@ -1,10 +1,10 @@
 package langton.views;
 
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,23 +12,27 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import langton.controllers.PlaygroundController;
+import langton.controllers.SettingsController;
 import langton.data.Ant;
+import langton.data.Field;
 import langton.data.Map;
 import langton.helpers.Point;
 
 /**
  * @author Gerome Wiss
- * @version 16_02_2019
+ * @version 28_03_2019
  *
  * This class holds all the information related to the visual representation of the fields and ants on it.
  * It displays the playground in a border pane.
  */
-public class Playground {
-    private Scene scene;
+public class Playground extends View {
     private BorderPane pane;
+    private HBox topBox;
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private double fieldWidth, fieldHeight;
+    private PlaygroundController controller;
 
     /**
      * This constructor instantiates a border pane and adds two style sheets to it.
@@ -36,27 +40,47 @@ public class Playground {
      * It then derives the graphicsContext from the newly created canvas and stores the border pane in the scene.
      * @param width The initial width of the canvas.
      * @param height The initial height of the canvas.
+     * @param controller The viewcontroller that controls this view.
      */
-    public Playground(double width, double height) {
+    public Playground(double width, double height, PlaygroundController controller) {
+        super();
         fieldHeight = 0;
         fieldWidth = 0;
+        this.controller = controller;
 
-        canvas = new Canvas(width, height);
-        graphicsContext = canvas.getGraphicsContext2D();
-        pane = new BorderPane(canvas);
+        pane = new BorderPane();
         pane.getStylesheets().add("/stylesheets/defaultStyles.css");
         pane.getStylesheets().add("/stylesheets/playgroundStyles.css");
 
+        // Create content for the top box.
         Label titleLabel = new Label("Langton's Ant");
         titleLabel.setTextAlignment(TextAlignment.CENTER);
         titleLabel.getStyleClass().add("titleLabel");
-        HBox topBox = new HBox(titleLabel);
+
+        Button settingsButton = new Button();
+        settingsButton.setOnAction(event -> {
+            // TODO: Replace with controller.handleSettingsButtonClick()
+            SettingsController settingsController = new SettingsController(controller.getAlgorithm().getSettings());
+        });
+        settingsButton.getStyleClass().add("settingsButton");
+        settingsButton.setPrefSize(40, 40);
+
+        // Create the top box.
+        topBox = new HBox();
+        topBox.getChildren().addAll(titleLabel, settingsButton);
         topBox.getStyleClass().add("topBox");
         topBox.setAlignment(Pos.CENTER);
 
         pane.setTop(topBox);
 
-        scene = new Scene(pane);
+        canvas = new Canvas(width, height - topBox.getHeight());
+        graphicsContext = canvas.getGraphicsContext2D();
+        pane.setCenter(canvas);
+
+        super.addNodeToRoot(pane);
+
+        // Add an Ant on the click of a user.
+        canvas.setOnMouseClicked(event -> controller.handleCanvasClick(event.getX() / fieldWidth, event.getY() / fieldHeight));
     }
 
     /**
@@ -70,16 +94,25 @@ public class Playground {
         // The height of a single rectangle.
         fieldHeight = canvas.getHeight() / rows;
 
-        for(int i = 0; i < map.getFields().length; i++) {
-            for(int j = 0; j < map.getFields()[i].length; j++) {
+        for(int x = 0; x < map.getFields().length; x++) {
+            for(int y = 0; y < map.getFields()[x].length; y++) {
                 // Draw the field background.
-                graphicsContext.setFill(map.getFields()[i][j].getColor());
-                graphicsContext.fillRect(i * fieldWidth, j * fieldHeight, fieldWidth, fieldHeight);
+                graphicsContext.setFill(map.getFields()[x][y].getColor());
+                graphicsContext.fillRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
                 // Draw the borders
-                graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 1));
-                graphicsContext.strokeRect(i * fieldWidth, j * fieldHeight, fieldWidth, fieldHeight);
+                drawBorder(x, y);
             }
         }
+    }
+
+    /**
+     * Draws a black border around a field.
+     * @param x The x coordinate of the field.
+     * @param y The y coordinate of the field.
+     */
+    private void drawBorder(int x, int y) {
+        graphicsContext.setStroke(new Color(0.1, 0.1, 0.1, 1));
+        graphicsContext.strokeRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
     }
 
     /**
@@ -87,25 +120,6 @@ public class Playground {
      * @param ant The ant that is to be drawn.
      */
     public void drawAnt(Ant ant) {
-        double degrees;
-        switch (ant.getDirection()) {
-            case UP:
-                degrees = 0;
-                break;
-            case RIGHT:
-                degrees = 90;
-                break;
-            case DOWN:
-                degrees = 180;
-                break;
-            case LEFT:
-                degrees = 270;
-                break;
-            default:
-                degrees = 0;
-                break;
-        }
-
         String antIconUrl = "/images/ant_icon.png";
         Image antIcon = new Image(antIconUrl);
         Point pos = ant.getPosition();
@@ -117,7 +131,7 @@ public class Playground {
         // Create an Image view
         ImageView iv = new ImageView(antIcon);
         // Rotate the image in the Image view
-        iv.setRotate(degrees);
+        iv.setRotate(ant.getDirection());
         // Set parameters for the snapshot
         SnapshotParameters params = new SnapshotParameters();
         params.setFill(Color.TRANSPARENT);
@@ -136,19 +150,33 @@ public class Playground {
     }
 
     /**
+     * Clears a field.
+     * @param x The x coordinate of the field.
+     * @param y The y coordinate of the field.
+     */
+    public void clearField(int x, int y) {
+        graphicsContext.clearRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
+    }
+
+    /**
+     * Draws a field (including the border) onto the canvas.
+     * @param x The x coordinate of the field.
+     * @param y The y coordinate of the field.
+     * @param field The field object (used for the color).
+     */
+    public void drawField(int x, int y, Field field) {
+        graphicsContext.setFill(field.getColor());
+        graphicsContext.fillRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
+        drawBorder(x, y);
+    }
+
+    /**
      * Updates the canvas width and height.
      * @param width The new width.
      * @param height The new height.
      */
     public void updateCanvasSize(double width, double height) {
         canvas.setWidth(width);
-        canvas.setHeight(height);
-    }
-
-    /**
-     * @return Returns the entire scene of the view.
-     */
-    public Scene getScene() {
-        return scene;
+        canvas.setHeight(height - (topBox.getHeight() + topBox.getPadding().getBottom() + topBox.getPadding().getTop() + 2));
     }
 }

@@ -3,9 +3,10 @@ package langton;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import langton.controllers.PlaygroundController;
+import langton.controllers.ScreensController;
 import langton.data.Algorithm;
-import langton.helpers.Direction;
-import langton.views.SettingsAnt;
+import langton.helpers.ResizeListener;
+import java.util.ArrayList;
 
 
 /**
@@ -16,14 +17,13 @@ import langton.views.SettingsAnt;
  */
 public class Main extends Application {
 
-    public void start(Stage primaryStage) throws Exception {
+    private ArrayList<ResizeListener> resizeListeners;
+
+    public void start(Stage primaryStage) /*throws Exception*/ {
+
+        resizeListeners = new ArrayList<>();
         // Create Data Objects
-        Algorithm algorithm = new Algorithm(100, 100);
-        // Add some example ants.
-        algorithm.addAnt(25, 25, Direction.UP);
-        algorithm.addAnt(75, 25, Direction.RIGHT);
-        algorithm.addAnt(25, 75, Direction.DOWN);
-        algorithm.addAnt(75, 75, Direction.LEFT);
+        Algorithm algorithm = new Algorithm(150, 150, 10, true, false);
 
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);
@@ -32,15 +32,22 @@ public class Main extends Application {
         primaryStage.setScene(playgroundController.getPlayground().getScene());
         primaryStage.setMaximized(true);
         primaryStage.setOnCloseRequest(e -> System.exit(0));
+        // SettingsView for the window / primary stage
+        ScreensController screensController = new ScreensController(primaryStage, playgroundController);
+
         primaryStage.show();
 
         // Is executed after the view has been loaded. Necessary to access certain attributes like height.
         playgroundController.updateCanvasSize(primaryStage.getWidth(), primaryStage.getHeight());
-        playgroundController.updatePlayground();
+        playgroundController.updateFullPlayground();
 
         // Start the algorithm.
         algorithm.play();
 
-        SettingsAnt selection = new SettingsAnt();
+        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            for(ResizeListener resizeListener : resizeListeners) {
+                resizeListener.update();
+            }
+        });
     }
 }
