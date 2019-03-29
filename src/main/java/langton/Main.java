@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import langton.controllers.PlaygroundController;
 import langton.data.Algorithm;
 import langton.helpers.Direction;
+import langton.views.SettingsAnt;
 
 
 /**
@@ -27,7 +28,7 @@ public class Main extends Application {
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);
 
-        // Settings for the window / primary stage
+        // SettingsAnt for the window / primary stage
         primaryStage.setScene(playgroundController.getPlayground().getScene());
         primaryStage.setMaximized(true);
         primaryStage.setOnCloseRequest(e -> System.exit(0));
@@ -39,5 +40,7 @@ public class Main extends Application {
 
         // Start the algorithm.
         algorithm.play();
+
+        SettingsAnt selection = new SettingsAnt();
     }
 }
