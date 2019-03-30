@@ -6,7 +6,7 @@ import langton.views.settings.SettingsView;
 
 /**
  * @author Gerome Wiss
- * @version 28_03_2019
+ * @version 30_03_2019
  */
 public class SettingsController {
 
@@ -14,12 +14,19 @@ public class SettingsController {
     private ConfirmationBox confirmationBox;
     private Settings settings;
 
+    /**
+     *
+     * @param settings
+     */
     public SettingsController(Settings settings) {
         this.settings = settings;
         this.view = new SettingsView(settings, this);
         this.view.show();
     }
 
+    /**
+     *
+     */
     public void handleOnCloseRequest() {
         if(hasUnsavedChanges()) {
             displayConfirmationBox();
@@ -28,11 +35,17 @@ public class SettingsController {
         }
     }
 
+    /**
+     *
+     */
     public void handleSubmitButtonClick() {
         applyChanges();
         view.close();
     }
 
+    /**
+     *
+     */
     public void handleCancelButtonClick() {
         if(hasUnsavedChanges()) {
             displayConfirmationBox();
@@ -42,29 +55,48 @@ public class SettingsController {
         }
     }
 
+    /**
+     *
+     */
     public void handleApplyButtonClick() {
         applyChanges();
     }
 
+    /**
+     *
+     */
     public void handleDiscardButtonClick() {
         confirmationBox.close();
     }
 
+    /**
+     *
+     */
     public void handleBoxSaveButtonClick() {
         applyChanges();
         confirmationBox.close();
     }
 
+    /**
+     *
+     */
     private void displayConfirmationBox() {
         confirmationBox = new ConfirmationBox(this);
         confirmationBox.showAndWait();
     }
 
+    /**
+     *
+     */
     private void applyChanges() {
         settings.setUseTorus(useTorus());
         settings.setRenderAnts(renderAnts());
     }
 
+    /**
+     *
+     * @return
+     */
     private boolean hasUnsavedChanges() {
         boolean hasUnsavedChanges = false;
         if(settings.useTorus() != useTorus()) {
@@ -75,18 +107,34 @@ public class SettingsController {
         return hasUnsavedChanges;
     }
 
+    /**
+     *
+     * @return
+     */
     public SettingsView getView() {
         return view;
     }
 
+    /**
+     *
+     * @return
+     */
     public Settings getSettings() {
         return settings;
     }
 
+    /**
+     *
+     * @return
+     */
     private boolean useTorus() {
         return view.getTorusCheckBox().isSelected();
     }
 
+    /**
+     *
+     * @return
+     */
     private boolean renderAnts() {
         return view.getAntRenderingCheckBox().isSelected();
     }

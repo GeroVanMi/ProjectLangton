@@ -14,7 +14,7 @@ import langton.data.Settings;
 
 /**
  * @author Gerome Wiss
- * @version 28_03_2019
+ * @version 30_03_2019
  *
  * TODO: Update JavaDoc
  */

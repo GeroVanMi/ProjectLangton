@@ -12,7 +12,7 @@ import langton.controllers.SettingsController;
 
 /**
  * @author Gerome Wiss
- * @version 28_03_2019
+ * @version 30_03_2019
  */
 public class ConfirmationBox {
 
