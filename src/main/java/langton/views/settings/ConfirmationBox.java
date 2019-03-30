@@ -1,5 +1,6 @@
 package langton.views.settings;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -42,8 +43,9 @@ public class ConfirmationBox {
         Button discardButton = new Button("Discard");
         discardButton.setOnAction(onClickEvent -> controller.handleDiscardButtonClick());
 
-        HBox confirmButtonsHBox = new HBox(saveButton, discardButton);
+        HBox confirmButtonsHBox = new HBox(discardButton, saveButton);
         confirmButtonsHBox.setSpacing(10);
+        confirmButtonsHBox.setAlignment(Pos.CENTER_RIGHT);
         confirmationRoot.setBottom(confirmButtonsHBox);
 
         Scene confirmationScene = new Scene(confirmationRoot);

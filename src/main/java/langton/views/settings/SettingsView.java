@@ -89,7 +89,7 @@ public class SettingsView {
         Button cancelButton = new Button("Cancel");
         cancelButton.setOnAction(event -> controller.handleCancelButtonClick());
 
-        footer.getChildren().addAll(cancelButton, submitButton, applyButton);
+        footer.getChildren().addAll(cancelButton, applyButton, submitButton);
     }
 
     /**

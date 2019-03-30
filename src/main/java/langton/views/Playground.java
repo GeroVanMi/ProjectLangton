@@ -70,6 +70,7 @@ public class Playground extends View {
         topBox.getChildren().addAll(titleLabel, settingsButton);
         topBox.getStyleClass().add("topBox");
         topBox.setAlignment(Pos.CENTER);
+        topBox.setSpacing(15);
 
         pane.setTop(topBox);
 
