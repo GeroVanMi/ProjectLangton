@@ -1,5 +1,7 @@
 package langton.controllers;
 
+import javafx.event.ActionEvent;
+import javafx.stage.WindowEvent;
 import langton.data.Settings;
 import langton.views.settings.ConfirmationBox;
 import langton.views.settings.SettingsView;
@@ -15,7 +17,6 @@ public class SettingsController {
     private Settings settings;
 
     /**
-     *
      * @param settings
      */
     public SettingsController(Settings settings) {
@@ -27,9 +28,13 @@ public class SettingsController {
     /**
      *
      */
-    public void handleOnCloseRequest() {
-        if(hasUnsavedChanges()) {
-            displayConfirmationBox();
+    public void handleOnCloseRequest(WindowEvent event) {
+        event.consume();
+        if (hasUnsavedChanges()) {
+            if(confirmationBox == null) {
+                displayConfirmationBox();
+                view.close();
+            }
         } else {
             view.close();
         }
@@ -38,7 +43,7 @@ public class SettingsController {
     /**
      *
      */
-    public void handleSubmitButtonClick() {
+    public void handleSubmitButtonClick(ActionEvent event) {
         applyChanges();
         view.close();
     }
@@ -46,10 +51,12 @@ public class SettingsController {
     /**
      *
      */
-    public void handleCancelButtonClick() {
-        if(hasUnsavedChanges()) {
-            displayConfirmationBox();
-            view.close();
+    public void handleCancelButtonClick(ActionEvent event) {
+        if (hasUnsavedChanges()) {
+            if(confirmationBox == null) {
+                displayConfirmationBox();
+                view.close();
+            }
         } else {
             view.close();
         }
@@ -58,21 +65,21 @@ public class SettingsController {
     /**
      *
      */
-    public void handleApplyButtonClick() {
+    public void handleApplyButtonClick(ActionEvent event) {
         applyChanges();
     }
 
     /**
      *
      */
-    public void handleDiscardButtonClick() {
+    public void handleDiscardButtonClick(ActionEvent event) {
         confirmationBox.close();
     }
 
     /**
      *
      */
-    public void handleBoxSaveButtonClick() {
+    public void handleBoxSaveButtonClick(ActionEvent event) {
         applyChanges();
         confirmationBox.close();
     }
@@ -83,6 +90,7 @@ public class SettingsController {
     private void displayConfirmationBox() {
         confirmationBox = new ConfirmationBox(this);
         confirmationBox.showAndWait();
+
     }
 
     /**
@@ -94,21 +102,19 @@ public class SettingsController {
     }
 
     /**
-     *
      * @return
      */
     private boolean hasUnsavedChanges() {
         boolean hasUnsavedChanges = false;
-        if(settings.useTorus() != useTorus()) {
+        if (settings.useTorus() != useTorus()) {
             hasUnsavedChanges = true;
-        } else if(settings.renderAnts() != renderAnts()) {
+        } else if (settings.renderAnts() != renderAnts()) {
             hasUnsavedChanges = true;
         }
         return hasUnsavedChanges;
     }
 
     /**
-     *
      * @return
      */
     public SettingsView getView() {
@@ -116,7 +122,6 @@ public class SettingsController {
     }
 
     /**
-     *
      * @return
      */
     public Settings getSettings() {
@@ -124,7 +129,6 @@ public class SettingsController {
     }
 
     /**
-     *
      * @return
      */
     private boolean useTorus() {
@@ -132,7 +136,6 @@ public class SettingsController {
     }
 
     /**
-     *
      * @return
      */
     private boolean renderAnts() {

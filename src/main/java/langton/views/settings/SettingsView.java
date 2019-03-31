@@ -49,7 +49,7 @@ public class SettingsView {
         Scene scene = new Scene(root);
         stage = new Stage();
         stage.setScene(scene);
-        stage.setOnCloseRequest(onExitEvent -> controller.handleOnCloseRequest());
+        stage.setOnCloseRequest(controller::handleOnCloseRequest);
     }
 
     /**
@@ -83,11 +83,11 @@ public class SettingsView {
         root.setBottom(footer);
 
         Button submitButton = new Button("Submit");
-        submitButton.setOnAction(event -> controller.handleSubmitButtonClick());
+        submitButton.setOnAction(controller::handleSubmitButtonClick);
         Button applyButton = new Button("Apply");
-        applyButton.setOnAction(event -> controller.handleApplyButtonClick());
+        applyButton.setOnAction(controller::handleApplyButtonClick);
         Button cancelButton = new Button("Cancel");
-        cancelButton.setOnAction(event -> controller.handleCancelButtonClick());
+        cancelButton.setOnAction(controller::handleCancelButtonClick);
 
         footer.getChildren().addAll(cancelButton, applyButton, submitButton);
     }
