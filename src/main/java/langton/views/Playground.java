@@ -94,6 +94,21 @@ public class Playground extends View {
         titleLabel.setTextAlignment(TextAlignment.CENTER);
         titleLabel.getStyleClass().add("titleLabel");
 
+        Button controlButton = new Button();
+        controlButton.setOnAction(event -> {
+            if (controlButton.getStyleClass().get(1).equals("pauseButton")) {
+                controlButton.getStyleClass().remove(1);
+                controlButton.getStyleClass().add("playButton");
+                controller.handlePauseButtonClick();
+            } else {
+                controlButton.getStyleClass().remove(1);
+                controlButton.getStyleClass().add("pauseButton");
+                controller.handlePlayButtonClick();
+            }
+        });
+        controlButton.getStyleClass().add("pauseButton");
+
+
         Button settingsButton = new Button();
         settingsButton.setOnAction(controller::handleButtonSettingsClick);
         settingsButton.getStyleClass().add("settingsButton");
@@ -101,7 +116,7 @@ public class Playground extends View {
 
         // Create the top box.
         header = new HBox();
-        header.getChildren().addAll(titleLabel, settingsButton);
+        header.getChildren().addAll(titleLabel, controlButton, settingsButton);
         header.getStyleClass().add("header");
         header.setAlignment(Pos.CENTER);
         header.setSpacing(15);

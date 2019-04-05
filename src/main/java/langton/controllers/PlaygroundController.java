@@ -68,6 +68,14 @@ public class PlaygroundController extends ViewController implements TickListener
         algorithm.addAnt((int) x, (int) y, 0);
     }
 
+    public void handlePauseButtonClick() {
+        algorithm.pause();
+    }
+
+    public void handlePlayButtonClick() {
+        algorithm.play();
+    }
+
     /**
      *
      */
