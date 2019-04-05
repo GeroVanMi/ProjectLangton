@@ -13,7 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import langton.controllers.PlaygroundController;
-import langton.controllers.SettingsController;
 import langton.data.Ant;
 import langton.data.Field;
 import langton.data.Map;
@@ -28,7 +27,7 @@ import langton.helpers.Point;
  */
 public class Playground extends View {
     private BorderPane pane;
-    private HBox topBox;
+    private HBox header;
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private double fieldWidth, fieldHeight;
@@ -52,29 +51,10 @@ public class Playground extends View {
         pane.getStylesheets().add("/stylesheets/defaultStyles.css");
         pane.getStylesheets().add("/stylesheets/playgroundStyles.css");
 
-        // Create content for the top box.
-        Label titleLabel = new Label("Langton's Ant");
-        titleLabel.setTextAlignment(TextAlignment.CENTER);
-        titleLabel.getStyleClass().add("titleLabel");
+        this.createHeader();
+        pane.setTop(header);
 
-        Button settingsButton = new Button();
-        settingsButton.setOnAction(event -> {
-            // TODO: Replace with controller.handleSettingsButtonClick()
-            SettingsController settingsController = new SettingsController(controller.getAlgorithm().getSettings());
-        });
-        settingsButton.getStyleClass().add("settingsButton");
-        settingsButton.setPrefSize(40, 40);
-
-        // Create the top box.
-        topBox = new HBox();
-        topBox.getChildren().addAll(titleLabel, settingsButton);
-        topBox.getStyleClass().add("topBox");
-        topBox.setAlignment(Pos.CENTER);
-        topBox.setSpacing(15);
-
-        pane.setTop(topBox);
-
-        canvas = new Canvas(width, height - topBox.getHeight());
+        canvas = new Canvas(width, height - header.getHeight());
         graphicsContext = canvas.getGraphicsContext2D();
         pane.setCenter(canvas);
 
@@ -104,6 +84,28 @@ public class Playground extends View {
                 drawBorder(x, y);
             }
         }
+    }
+
+    /**
+     *
+     */
+    private void createHeader() {
+        // Create content for the top box.
+        Label titleLabel = new Label("Langton's Ant");
+        titleLabel.setTextAlignment(TextAlignment.CENTER);
+        titleLabel.getStyleClass().add("titleLabel");
+
+        Button settingsButton = new Button();
+        settingsButton.setOnAction(controller::handleButtonSettingsClick);
+        settingsButton.getStyleClass().add("settingsButton");
+        settingsButton.setPrefSize(40, 40);
+
+        // Create the top box.
+        header = new HBox();
+        header.getChildren().addAll(titleLabel, settingsButton);
+        header.getStyleClass().add("header");
+        header.setAlignment(Pos.CENTER);
+        header.setSpacing(15);
     }
 
     /**
@@ -178,6 +180,6 @@ public class Playground extends View {
      */
     public void updateCanvasSize(double width, double height) {
         canvas.setWidth(width);
-        canvas.setHeight(height - (topBox.getHeight() + topBox.getPadding().getBottom() + topBox.getPadding().getTop() + 2));
+        canvas.setHeight(height - (header.getHeight() + header.getPadding().getBottom() + header.getPadding().getTop() + 2));
     }
 }

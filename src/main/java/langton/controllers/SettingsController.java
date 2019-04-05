@@ -120,20 +120,6 @@ public class SettingsController {
     /**
      * @return
      */
-    public SettingsView getView() {
-        return view;
-    }
-
-    /**
-     * @return
-     */
-    public Settings getSettings() {
-        return settings;
-    }
-
-    /**
-     * @return
-     */
     private boolean useTorus() {
         return view.getTorusCheckBox().isSelected();
     }

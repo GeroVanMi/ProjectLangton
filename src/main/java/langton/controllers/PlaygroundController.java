@@ -1,5 +1,6 @@
 package langton.controllers;
 
+import javafx.event.ActionEvent;
 import langton.data.Algorithm;
 import langton.data.Ant;
 import langton.helpers.TickListener;
@@ -68,6 +69,13 @@ public class PlaygroundController extends ViewController implements TickListener
     }
 
     /**
+     *
+     */
+    public void handleButtonSettingsClick(ActionEvent event) {
+        SettingsController settingsController = new SettingsController(algorithm.getSettings());
+    }
+
+    /**
      * In- or decreases the size of the canvas on the playground.
      *
      * @param width  The new width.
@@ -84,6 +92,10 @@ public class PlaygroundController extends ViewController implements TickListener
         return playground;
     }
 
+    /**
+     *
+     * @return
+     */
     public Algorithm getAlgorithm() {
         return algorithm;
     }
