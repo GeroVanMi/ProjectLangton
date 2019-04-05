@@ -17,8 +17,10 @@ import langton.controllers.SettingsController;
 public class ConfirmationBox {
 
     private Stage stage;
+    private SettingsController controller;
 
     public ConfirmationBox(SettingsController controller) {
+        this.controller = controller;
         stage = new Stage();
 
         // --------------------------------------------------------------------------
@@ -26,6 +28,7 @@ public class ConfirmationBox {
         // https://stackoverflow.com/questions/8341305/how-to-remove-javafx-stage-buttons-minimize-maximize-close
         // --------------------------------------------------------------------------
         stage.initStyle(StageStyle.UNDECORATED);
+        stage.setAlwaysOnTop(true);
 
         BorderPane confirmationRoot = new BorderPane();
         confirmationRoot.getStylesheets().add("stylesheets/settingsViewStyles.css");
@@ -35,23 +38,33 @@ public class ConfirmationBox {
         Label confirmationQuestionLabel = new Label(confirmationQuestion);
         confirmationRoot.setCenter(confirmationQuestionLabel);
 
-        Button saveButton = new Button("Save");
-        saveButton.setOnAction(controller::handleBoxSaveButtonClick);
-
-        Button discardButton = new Button("Discard");
-        discardButton.setOnAction(controller::handleDiscardButtonClick);
-
-        HBox confirmButtonsHBox = new HBox(discardButton, saveButton);
-        confirmButtonsHBox.setSpacing(10);
-        confirmButtonsHBox.setAlignment(Pos.CENTER_RIGHT);
-        confirmationRoot.setBottom(confirmButtonsHBox);
+        confirmationRoot.setBottom(this.createButtons());
 
         Scene confirmationScene = new Scene(confirmationRoot);
         stage.setScene(confirmationScene);
     }
 
+    private HBox createButtons() {
+        Button saveButton = new Button("Save");
+        saveButton.setOnAction(controller::handleBoxSaveButtonClick);
+
+        Button discardButton = new Button("Discard");
+        discardButton.setOnAction(controller::handleBoxDiscardButtonClick);
+
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setOnAction(controller::handleBoxCancelButtonClick);
+
+        HBox confirmButtonsHBox = new HBox(cancelButton, discardButton, saveButton);
+        confirmButtonsHBox.setSpacing(10);
+        confirmButtonsHBox.setAlignment(Pos.CENTER_RIGHT);
+
+        return confirmButtonsHBox;
+    }
+
     public void showAndWait() {
-        stage.showAndWait();
+        if(!stage.isShowing()) {
+            stage.showAndWait();
+        }
     }
 
     public void close() {

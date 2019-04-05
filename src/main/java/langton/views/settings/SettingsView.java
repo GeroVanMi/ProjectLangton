@@ -53,6 +53,7 @@ public class SettingsView {
         stage = new Stage();
         stage.setScene(scene);
         stage.setOnCloseRequest(controller::handleOnCloseRequest);
+        stage.setAlwaysOnTop(true);
     }
 
     /**
@@ -114,8 +115,8 @@ public class SettingsView {
     /**
      *
      */
-    public void show() {
-        stage.show();
+    public void showAndWait() {
+        stage.showAndWait();
     }
 
     public CheckBox getTorusCheckBox() {
@@ -128,5 +129,9 @@ public class SettingsView {
 
     public Slider getTickSlider() {
         return tickSlider;
+    }
+
+    public void setAlwaysOnTop(boolean alwaysOnTop) {
+        stage.setAlwaysOnTop(alwaysOnTop);
     }
 }

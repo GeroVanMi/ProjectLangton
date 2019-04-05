@@ -22,7 +22,7 @@ public class SettingsController {
     public SettingsController(Settings settings) {
         this.settings = settings;
         this.view = new SettingsView(settings, this);
-        this.view.show();
+        this.view.showAndWait();
     }
 
     /**
@@ -31,10 +31,7 @@ public class SettingsController {
     public void handleOnCloseRequest(WindowEvent event) {
         event.consume();
         if (hasUnsavedChanges()) {
-            if (confirmationBox == null) {
-                displayConfirmationBox();
-                view.close();
-            }
+            displayConfirmationBox();
         } else {
             view.close();
         }
@@ -53,10 +50,7 @@ public class SettingsController {
      */
     public void handleCancelButtonClick(ActionEvent event) {
         if (hasUnsavedChanges()) {
-            if (confirmationBox == null) {
-                displayConfirmationBox();
-                view.close();
-            }
+            displayConfirmationBox();
         } else {
             view.close();
         }
@@ -72,8 +66,17 @@ public class SettingsController {
     /**
      *
      */
-    public void handleDiscardButtonClick(ActionEvent event) {
+    public void handleBoxDiscardButtonClick(ActionEvent event) {
         confirmationBox.close();
+        view.close();
+    }
+
+    /**
+     *
+     */
+    public void handleBoxCancelButtonClick(ActionEvent event) {
+        confirmationBox.close();
+        view.setAlwaysOnTop(true);
     }
 
     /**
@@ -82,15 +85,19 @@ public class SettingsController {
     public void handleBoxSaveButtonClick(ActionEvent event) {
         applyChanges();
         confirmationBox.close();
+        view.close();
     }
+
 
     /**
      *
      */
     private void displayConfirmationBox() {
-        confirmationBox = new ConfirmationBox(this);
+        view.setAlwaysOnTop(false);
+        if (confirmationBox == null) {
+            confirmationBox = new ConfirmationBox(this);
+        }
         confirmationBox.showAndWait();
-
     }
 
     /**
@@ -130,4 +137,5 @@ public class SettingsController {
     private boolean renderAnts() {
         return view.getAntRenderingCheckBox().isSelected();
     }
+
 }

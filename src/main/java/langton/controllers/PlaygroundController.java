@@ -72,7 +72,9 @@ public class PlaygroundController extends ViewController implements TickListener
      *
      */
     public void handleButtonSettingsClick(ActionEvent event) {
+        algorithm.pause();
         SettingsController settingsController = new SettingsController(algorithm.getSettings());
+        algorithm.play();
     }
 
     /**
