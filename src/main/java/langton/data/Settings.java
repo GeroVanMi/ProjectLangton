@@ -2,7 +2,7 @@ package langton.data;
 
 /**
  * @author Gerome Wiss
- * @version 26_03_2019
+ * @version 05_04_2019
  *
  * TODO: Update JavaDoc
  */

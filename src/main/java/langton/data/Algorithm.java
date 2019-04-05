@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * @author Gerome Wiss
- * @version 29_03_2019
+ * @version 05_04_2019
  *
  * This class manages all the data about the ants and the map.
  */
@@ -88,7 +88,7 @@ public class Algorithm {
      * Stops the timeline. Prevents the timeline from being executed again.
      * @see Timeline
      */
-    public void stop() {
+    private void stop() {
         timeline.stop();
     }
 

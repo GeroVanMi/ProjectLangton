@@ -15,7 +15,7 @@ import langton.data.Settings;
 
 /**
  * @author Gerome Wiss
- * @version 30_03_2019
+ * @version 05_04_2019
  *
  * TODO: Update JavaDoc
  */
@@ -29,7 +29,6 @@ public class SettingsView {
     private Slider tickSlider;
 
     /**
-     *
      * @param settings
      */
     public SettingsView(Settings settings, SettingsController controller) {

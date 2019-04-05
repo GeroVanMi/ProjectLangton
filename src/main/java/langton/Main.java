@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
 
 /**
  * @author Gerome Wiss
- * @version 28_03_2019
+ * @version 05_04_2019
  *
  * This class is called when a user starts the application. It acts as an initiator for many values.
  */

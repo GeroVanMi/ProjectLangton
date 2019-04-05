@@ -1,6 +1,5 @@
 package langton.views.settings;
 
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,16 +12,14 @@ import langton.controllers.SettingsController;
 
 /**
  * @author Gerome Wiss
- * @version 30_03_2019
+ * @version 05_04_2019
  */
 public class ConfirmationBox {
 
     private Stage stage;
-    private SettingsController controller;
 
     public ConfirmationBox(SettingsController controller) {
         stage = new Stage();
-        this.controller = controller;
 
         // --------------------------------------------------------------------------
         // Credit to Shardendu from StackOverflow

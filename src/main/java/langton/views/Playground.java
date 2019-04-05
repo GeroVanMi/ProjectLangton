@@ -20,13 +20,12 @@ import langton.helpers.Point;
 
 /**
  * @author Gerome Wiss
- * @version 30_03_2019
+ * @version 05_04_2019
  *
  * This class holds all the information related to the visual representation of the fields and ants on it.
  * It displays the playground in a border pane.
  */
 public class Playground extends View {
-    private BorderPane pane;
     private HBox header;
     private Canvas canvas;
     private GraphicsContext graphicsContext;
@@ -47,7 +46,7 @@ public class Playground extends View {
         fieldWidth = 0;
         this.controller = controller;
 
-        pane = new BorderPane();
+        BorderPane pane = new BorderPane();
         pane.getStylesheets().add("/stylesheets/defaultStyles.css");
         pane.getStylesheets().add("/stylesheets/playgroundStyles.css");
 

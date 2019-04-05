@@ -5,7 +5,7 @@ import langton.helpers.Point;
 
 /**
  * @author Gerome Wiss
- * @version 29_03_2019
+ * @version 05_04_2019
  *
  * This class holds all information about a single ant on the field.
  * It provides methods to move the ant around and to change the direction it's facing.
@@ -63,15 +63,6 @@ public class Ant {
     }
 
     /**
-     * This method can be called to let the ant move into a specific direction and change it's direction based on
-     * the field it stands on.
-     */
-    public void tick() {
-        this.move();
-        // TODO: Change Direction based on field.
-    }
-
-    /**
      * This method changes the position of the ant based on the direction it is facing.
      */
     public void move() {
@@ -101,8 +92,7 @@ public class Ant {
     }
 
     /**
-     *
-     * @return
+     * @return Returns the last position of the ant.
      */
     public Point getLastPosition() {
         return lastPosition;
