@@ -78,10 +78,7 @@ public class SettingsView {
     }
 
     private void createSlider() {
-        tickSlider = new Slider(0.5, 5, settings.getTicksPerSecond());
-        tickSlider.setOnMouseReleased(event -> settings.setTicksPerSecond(tickSlider.getValue()));
-        tickSlider.setShowTickMarks(true);
-        tickSlider.setMajorTickUnit(0.5);
+        tickSlider = new Slider(1, 100, settings.getTicksPerSecond());
         tickSlider.setShowTickLabels(true);
 
         Label tickSliderLabel = new Label("Ticks per Second");
@@ -128,5 +125,9 @@ public class SettingsView {
 
     public CheckBox getAntRenderingCheckBox() {
         return antRenderingCheckBox;
+    }
+
+    public Slider getTickSlider() {
+        return tickSlider;
     }
 }

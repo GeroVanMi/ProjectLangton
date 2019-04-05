@@ -161,5 +161,6 @@ public class Algorithm {
     public void updateTicks() {
         this.stop();
         this.createTimeline();
+        this.play();
     }
 }

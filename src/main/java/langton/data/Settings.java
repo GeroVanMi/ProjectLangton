@@ -69,5 +69,6 @@ public class Settings {
      */
     public void setTicksPerSecond(double ticksPerSecond) {
         this.ticksPerSecond = ticksPerSecond;
+        algorithm.updateTicks();
     }
 }
