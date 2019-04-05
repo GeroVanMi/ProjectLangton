@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -25,6 +26,7 @@ public class SettingsView {
     private CheckBox torusCheckBox, antRenderingCheckBox;
     private Settings settings;
     private SettingsController controller;
+    private Slider tickSlider;
 
     /**
      *
@@ -37,14 +39,16 @@ public class SettingsView {
         contentPane = new GridPane();
         contentPane.getStyleClass().add("contentPane");
         contentPane.setVgap(10);
+        contentPane.setHgap(10);
 
         root = new BorderPane(contentPane);
 
         this.createCheckBoxes();
+        this.createSlider();
         this.createButtons();
 
         root.getStyleClass().add("root");
-        root.setPrefSize(300, 500);
+        root.setPrefSize(350, 500);
         root.getStylesheets().add("stylesheets/settingsViewStyles.css");
         Scene scene = new Scene(root);
         stage = new Stage();
@@ -71,6 +75,18 @@ public class SettingsView {
         }
         Label antRenderingLabel = new Label("Render ants");
         contentPane.addRow(1, antRenderingCheckBox, antRenderingLabel);
+    }
+
+    private void createSlider() {
+        tickSlider = new Slider(0.5, 5, settings.getTicksPerSecond());
+        tickSlider.setOnMouseReleased(event -> settings.setTicksPerSecond(tickSlider.getValue()));
+        tickSlider.setShowTickMarks(true);
+        tickSlider.setMajorTickUnit(0.5);
+        tickSlider.setShowTickLabels(true);
+
+        Label tickSliderLabel = new Label("Ticks per Second");
+
+        contentPane.addRow(2, tickSlider, tickSliderLabel);
     }
 
     /**

@@ -8,15 +8,19 @@ package langton.data;
  */
 public class Settings {
     private boolean useTorus, renderAnts;
+    private double ticksPerSecond;
+    private Algorithm algorithm;
 
     /**
      *
      * @param useTorus
      * @param renderAnts
      */
-    public Settings(boolean useTorus, boolean renderAnts) {
+    public Settings(boolean useTorus, boolean renderAnts, double ticksPerSecond, Algorithm algorithm) {
         this.useTorus = useTorus;
         this.renderAnts = renderAnts;
+        this.ticksPerSecond = ticksPerSecond;
+        this.algorithm = algorithm;
     }
 
     /**
@@ -49,5 +53,21 @@ public class Settings {
      */
     public boolean renderAnts() {
         return renderAnts;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public double getTicksPerSecond() {
+        return ticksPerSecond;
+    }
+
+    /**
+     *
+     * @param ticksPerSecond
+     */
+    public void setTicksPerSecond(double ticksPerSecond) {
+        this.ticksPerSecond = ticksPerSecond;
     }
 }

@@ -5,7 +5,6 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import langton.helpers.Point;
 import langton.helpers.TickListener;
-
 import java.util.ArrayList;
 
 /**
@@ -26,13 +25,13 @@ public class Algorithm {
      * @param rows The initial amount of rows that are to be displayed.
      * @param columns The initial amount of columns that are to be displayed.
      */
-    public Algorithm(int rows, int columns, int intervalMillis, boolean useTorus, boolean renderAnts) {
+    public Algorithm(int rows, int columns, int ticksPerSecond, boolean useTorus, boolean renderAnts) {
+        this.settings = new Settings(useTorus, renderAnts, ticksPerSecond, this);
         this.map = new Map(rows, columns);
         map.generateMap();
         ants = new ArrayList<>();
         tickListeners = new ArrayList<>();
-        this.createTimeline(intervalMillis);
-        this.settings = new Settings(useTorus, renderAnts);
+        this.createTimeline();
     }
 
     /**
@@ -42,8 +41,6 @@ public class Algorithm {
     private void tick() {
         for(Ant ant : ants) {
             ant.move();
-            //                      50                      100
-            //System.out.println(map.getRowsCount() + " " + map.getColumnsCount());
             if(settings.useTorus()) {
                 int x = ant.getPosition().getX(), y = ant.getPosition().getY();
                 if(x > map.getRowsCount() - 1) {
@@ -73,10 +70,9 @@ public class Algorithm {
 
     /**
      * This method instantiates a new timeline object.
-     * @param intervalMillis The amount of time that passes between two cycles in milliseconds.
      */
-    private void createTimeline(int intervalMillis) {
-        this.timeline = new Timeline(new KeyFrame(Duration.millis(intervalMillis), e -> this.tick()));
+    private void createTimeline() {
+        this.timeline = new Timeline(new KeyFrame(Duration.millis(1000 / settings.getTicksPerSecond()), e -> this.tick()));
         this.timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
@@ -151,7 +147,19 @@ public class Algorithm {
         tickListeners.clear();
     }
 
+    /**
+     *
+     * @return
+     */
     public Settings getSettings() {
         return settings;
+    }
+
+    /**
+     *
+     */
+    public void updateTicks() {
+        this.stop();
+        this.createTimeline();
     }
 }

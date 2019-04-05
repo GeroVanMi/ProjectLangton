@@ -23,7 +23,7 @@ public class Main extends Application {
 
         resizeListeners = new ArrayList<>();
         // Create Data Objects
-        Algorithm algorithm = new Algorithm(150, 150, 10, true, false);
+        Algorithm algorithm = new Algorithm(150, 150, 1000, true, false);
 
         PlaygroundController playgroundController =
                 new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);
