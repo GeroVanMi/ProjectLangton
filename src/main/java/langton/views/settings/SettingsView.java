@@ -17,7 +17,7 @@ import langton.data.Settings;
  * @author Gerome Wiss
  * @version 05_04_2019
  *
- * TODO: Update JavaDoc
+ * The SettingsView class is used to give the user an interface to change the settings of the algorithm.
  */
 public class SettingsView {
     private Stage stage;
@@ -29,7 +29,7 @@ public class SettingsView {
     private Slider tickSlider;
 
     /**
-     * @param settings
+     * @param settings The current settings that are being used by the algorithm.
      */
     public SettingsView(Settings settings, SettingsController controller) {
         this.settings = settings;
@@ -44,7 +44,7 @@ public class SettingsView {
 
         this.createCheckBoxes();
         this.createSlider();
-        this.createButtons();
+        this.createFooter();
 
         root.getStyleClass().add("root");
         root.setPrefSize(350, 500);
@@ -57,7 +57,7 @@ public class SettingsView {
     }
 
     /**
-     *
+     * Creates the checkboxes that are used for true/false inputs.
      */
     private void createCheckBoxes() {
         // Checkbox to ask the user, whether he wants to use a torus as the map.
@@ -77,6 +77,9 @@ public class SettingsView {
         contentPane.addRow(1, antRenderingCheckBox, antRenderingLabel);
     }
 
+    /**
+     * Creates the slider that is used to regulate how many ticks pass per second.
+     */
     private void createSlider() {
         tickSlider = new Slider(1, 100, settings.getTicksPerSecond());
         tickSlider.setShowTickLabels(true);
@@ -87,9 +90,9 @@ public class SettingsView {
     }
 
     /**
-     *
+     * Creates the footer section.
      */
-    private void createButtons() {
+    private void createFooter() {
         HBox footer = new HBox();
         footer.setAlignment(Pos.CENTER_RIGHT);
         footer.setSpacing(10);
@@ -113,24 +116,36 @@ public class SettingsView {
     }
 
     /**
-     *
+     * Shows the window and prevents the user from interacting with any other stage.
      */
     public void showAndWait() {
         stage.showAndWait();
     }
 
+    /**
+     * @return Returns the checkbox responsible for the torus-setting.
+     */
     public CheckBox getTorusCheckBox() {
         return torusCheckBox;
     }
 
+    /**
+     * @return Returns the checkbox responsible for the rendering-setting.
+     */
     public CheckBox getAntRenderingCheckBox() {
         return antRenderingCheckBox;
     }
 
+    /**
+     * @return Returns the slider responsible for the ticks-per-second-setting.
+     */
     public Slider getTickSlider() {
         return tickSlider;
     }
 
+    /**
+     * @param alwaysOnTop Sets the alwaysOnTop attribute of the stage.
+     */
     public void setAlwaysOnTop(boolean alwaysOnTop) {
         stage.setAlwaysOnTop(alwaysOnTop);
     }
