@@ -24,6 +24,9 @@ public class SettingsController {
         this.view = new SettingsView(settings, this);
     }
 
+    /**
+     *
+     */
     public void showAndWait() {
         view.showAndWait();
     }
@@ -141,6 +144,9 @@ public class SettingsController {
         return view.getAntRenderingCheckBox().isSelected();
     }
 
+    /**
+     * @return Returns whether the stage of the settings view is showing.
+     */
     public boolean isShowing() {
         return view.isShowing();
     }

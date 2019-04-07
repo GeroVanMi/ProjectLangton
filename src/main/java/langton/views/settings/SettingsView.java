@@ -152,6 +152,10 @@ public class SettingsView {
         stage.setAlwaysOnTop(alwaysOnTop);
     }
 
+    /**
+     *
+     * @return Returns true if the stage is showing and false if it is not.
+     */
     public boolean isShowing() {
         return stage.isShowing();
     }
