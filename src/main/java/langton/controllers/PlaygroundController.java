@@ -16,6 +16,7 @@ import langton.views.Playground;
 public class PlaygroundController extends ViewController implements TickListener {
     private Playground playground;
     private Algorithm algorithm;
+    private SettingsController settingsController;
 
     /**
      * This constructor creates a Map and initialises the values needed for the playground.
@@ -80,9 +81,14 @@ public class PlaygroundController extends ViewController implements TickListener
      *
      */
     public void handleButtonSettingsClick(ActionEvent event) {
-        algorithm.pause();
-        SettingsController settingsController = new SettingsController(algorithm.getSettings());
-        algorithm.play();
+        if(settingsController == null) {
+            settingsController = new SettingsController(algorithm.getSettings());
+        }
+        if(!settingsController.isShowing()) {
+            algorithm.pause();
+            settingsController.showAndWait();
+            algorithm.play();
+        }
     }
 
     /**

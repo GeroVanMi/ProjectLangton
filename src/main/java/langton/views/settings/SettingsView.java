@@ -119,7 +119,9 @@ public class SettingsView {
      * Shows the window and prevents the user from interacting with any other stage.
      */
     public void showAndWait() {
-        stage.showAndWait();
+        if(!stage.isShowing()) {
+            stage.showAndWait();
+        }
     }
 
     /**
@@ -148,5 +150,9 @@ public class SettingsView {
      */
     public void setAlwaysOnTop(boolean alwaysOnTop) {
         stage.setAlwaysOnTop(alwaysOnTop);
+    }
+
+    public boolean isShowing() {
+        return stage.isShowing();
     }
 }

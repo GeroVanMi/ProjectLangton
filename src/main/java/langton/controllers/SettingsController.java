@@ -22,7 +22,10 @@ public class SettingsController {
     public SettingsController(Settings settings) {
         this.settings = settings;
         this.view = new SettingsView(settings, this);
-        this.view.showAndWait();
+    }
+
+    public void showAndWait() {
+        view.showAndWait();
     }
 
     /**
@@ -136,6 +139,10 @@ public class SettingsController {
      */
     private boolean renderAnts() {
         return view.getAntRenderingCheckBox().isSelected();
+    }
+
+    public boolean isShowing() {
+        return view.isShowing();
     }
 
 }
