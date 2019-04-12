@@ -22,7 +22,7 @@ import langton.helpers.Point;
 /**
  * @author Gerome Wiss
  * @version 28_03_2019
- *
+ * <p>
  * This class holds all the information related to the visual representation of the fields and ants on it.
  * It displays the playground in a border pane.
  */
@@ -38,8 +38,9 @@ public class Playground extends View {
      * This constructor instantiates a border pane and adds two style sheets to it.
      * Additionally it instantiates the canvas with the given width and height. and a title label.
      * It then derives the graphicsContext from the newly created canvas and stores the border pane in the scene.
-     * @param width The initial width of the canvas.
-     * @param height The initial height of the canvas.
+     *
+     * @param width      The initial width of the canvas.
+     * @param height     The initial height of the canvas.
      * @param controller The viewcontroller that controls this view.
      */
     public Playground(double width, double height, PlaygroundController controller) {
@@ -85,7 +86,8 @@ public class Playground extends View {
 
     /**
      * This method draws a rectangular grid onto the canvas.
-     * @param rows The amount of rows that are to be drawn.
+     *
+     * @param rows    The amount of rows that are to be drawn.
      * @param columns The amount of columns that are to be drawn.
      */
     public void drawGrid(int rows, int columns, Map map) {
@@ -94,8 +96,8 @@ public class Playground extends View {
         // The height of a single rectangle.
         fieldHeight = canvas.getHeight() / rows;
 
-        for(int x = 0; x < map.getFields().length; x++) {
-            for(int y = 0; y < map.getFields()[x].length; y++) {
+        for (int x = 0; x < map.getFields().length; x++) {
+            for (int y = 0; y < map.getFields()[x].length; y++) {
                 // Draw the field background.
                 graphicsContext.setFill(map.getFields()[x][y].getColor());
                 graphicsContext.fillRect(x * fieldWidth, y * fieldHeight, fieldWidth, fieldHeight);
@@ -107,6 +109,7 @@ public class Playground extends View {
 
     /**
      * Draws a black border around a field.
+     *
      * @param x The x coordinate of the field.
      * @param y The y coordinate of the field.
      */
@@ -117,6 +120,7 @@ public class Playground extends View {
 
     /**
      * This method draws an ant onto the field.
+     *
      * @param ant The ant that is to be drawn.
      */
     public void drawAnt(Ant ant) {
@@ -151,6 +155,7 @@ public class Playground extends View {
 
     /**
      * Clears a field.
+     *
      * @param x The x coordinate of the field.
      * @param y The y coordinate of the field.
      */
@@ -160,8 +165,9 @@ public class Playground extends View {
 
     /**
      * Draws a field (including the border) onto the canvas.
-     * @param x The x coordinate of the field.
-     * @param y The y coordinate of the field.
+     *
+     * @param x     The x coordinate of the field.
+     * @param y     The y coordinate of the field.
      * @param field The field object (used for the color).
      */
     public void drawField(int x, int y, Field field) {
@@ -172,7 +178,8 @@ public class Playground extends View {
 
     /**
      * Updates the canvas width and height.
-     * @param width The new width.
+     *
+     * @param width  The new width.
      * @param height The new height.
      */
     public void updateCanvasSize(double width, double height) {

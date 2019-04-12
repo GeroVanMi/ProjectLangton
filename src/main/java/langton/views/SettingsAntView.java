@@ -15,7 +15,7 @@ import langton.controllers.SettingsAntController;
 
 /**
  * @author Natalie Breu
- * @version 29_03_2019
+ * @version 07_04_2019
  * <p>
  * TODO: Update JavaDoc
  */
@@ -30,13 +30,11 @@ public class SettingsAntView {
     private Color red, blue, yellow;
     private TextField redTextField, greenTextField, blueTextField;
     private SettingsAntController controller;
+    private GridPane fieldsGridPane;
 
     public SettingsAntView(SettingsAntController settingsAntController) {
         this.controller = settingsAntController;
-        red = new Color(1, 0, 0, 1);
-        blue = new Color(0, 0, 1, 1);
-        yellow = new Color(0, 1, 0, 1);
-
+        fieldsGridPane = new GridPane();
         width = 400.0;
         heigth = 400.0;
         stage = new Stage();
@@ -46,14 +44,13 @@ public class SettingsAntView {
 
         comboBox = new ComboBox();
         GridPane colorsGridPane = new GridPane();
-        colorsGridPane.getStylesheets().add("/stylesheets/settingsAntStyles.css");
-
 
         redTextField = new TextField();
         greenTextField = new TextField();
         blueTextField = new TextField();
 
-        Label titleLabel = new Label("SettingsAntView");
+        Label titleLabel = new Label("Ant-Settings");
+        titleLabel.getStyleClass().add("titelStyle");
         titleLabel.setTextAlignment(TextAlignment.CENTER);
 
 
@@ -64,12 +61,43 @@ public class SettingsAntView {
         Label blueLabel = new Label("Blue");
         blueLabel.getStyleClass().add("textStyle");
 
-        colorsGridPane.addRow(0, redLabel, redTextField);
-        colorsGridPane.addRow(1, greenLabel, greenTextField);
-        colorsGridPane.addRow(2, blueLabel, blueTextField);
+        Label settingsColorLabel = new Label("Color:");
+        settingsColorLabel.getStyleClass().add("subtitleStyle");
 
+        Label settingsDirectionLabel = new Label("Direction:");
+        settingsDirectionLabel.getStyleClass().add("subtitleStyle");
+
+        colorsGridPane.addRow(0, settingsColorLabel);
+        colorsGridPane.addRow(1, redLabel, redTextField);
+        colorsGridPane.addRow(2, greenLabel, greenTextField);
+        colorsGridPane.addRow(3, blueLabel, blueTextField);
+        colorsGridPane.addRow(4);
+        colorsGridPane.addRow(5, settingsDirectionLabel);
+
+        //Abstand nebeneinander
         colorsGridPane.setHgap(25);
+        //Abstand untereinander
         colorsGridPane.setVgap(10);
+
+        Label emptyField = new Label();
+        emptyField.getStyleClass().add("label-border");
+        emptyField.setMinSize(35.0, 35.0);
+        Label fullField = new Label();
+        fullField.getStyleClass().add("label-background");
+        fullField.setMinSize(35.0, 35.0);
+        Label uselessLabel2 = new Label("");
+
+        ComboBox comboBoxEmptyFields = new ComboBox();
+        comboBoxEmptyFields.getItems().addAll("Up", "Down", "Left", "Right");
+
+        ComboBox comboBoxFullFields = new ComboBox();
+        comboBoxFullFields.getItems().addAll("Up", "Down", "Left", "Right");
+
+        fieldsGridPane.addRow(0, emptyField, comboBoxEmptyFields);
+        fieldsGridPane.addRow(1, fullField, comboBoxFullFields);
+
+        fieldsGridPane.setHgap(60);
+        fieldsGridPane.setVgap(10);
 
         Button buttonSaveSettingsField = new Button("Save");
         //Das zwüschet de {} isch Funktion, wo de Parameter (event) vorne mitgeh wird
@@ -79,13 +107,12 @@ public class SettingsAntView {
 
         VBox root = new VBox(titleLabel);
         root.getStylesheets().add("/stylesheets/defaultStyles.css");
+        root.getStylesheets().add("/stylesheets/settingsAntStyles.css");
         root.getStyleClass().add("backgroundcolor");
 
         scene = new Scene(root);
-        root.getChildren().add(colorsGridPane);
+        root.getChildren().addAll(colorsGridPane, fieldsGridPane, buttonSaveSettingsField);
 
-        // root.getChildren().add(comboBox);
-        root.getChildren().add(buttonSaveSettingsField);
         stage.setScene(scene);
     }
 
