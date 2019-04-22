@@ -9,19 +9,27 @@ import langton.views.settings.SettingBox;
 
 /**
  * @author Natalie Breu
- * @version 05_04_2019
+ * @version 22_04_2019
  */
-public class SettingsAntController { //Date geh und Date neh im Controller! Alles andere chunnt id View.
+public class SettingsAntController {
 
     private SettingsAntView settingsAntView;
     private SettingBox settingBox;
     private Settings settings;
 
+    /**
+     * Created SettingsAntController
+     */
     public SettingsAntController() {
         settingsAntView = new SettingsAntView(this);
         settingsAntView.showAndWait();
     }
 
+    /**
+     * Make sure the value of the TextFields isn't above 256 and below 0
+     *
+     * @param event
+     */
     public void handleSettingsAnt(ActionEvent event) {
         if (settingsAntView.getRedTextField().getText().isEmpty() ||
                 settingsAntView.getBlueTextField().getText().isEmpty() ||
@@ -44,12 +52,18 @@ public class SettingsAntController { //Date geh und Date neh im Controller! Alle
 
     }
 
+    /**
+     * Display error information until User clicks DiscardButton
+     */
     private void displayConfirmationBox() {
         settingBox = new SettingBox(this);
         settingBox.showAndWait();
     }
 
-    public void handleDiscardButtonClick(){
+    /**
+     * Handle DiscardButton
+     */
+    public void handleDiscardButtonClick() {
         settingBox.close();
 
     }

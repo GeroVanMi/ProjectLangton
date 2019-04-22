@@ -1,12 +1,12 @@
 package langton.views;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
@@ -15,7 +15,7 @@ import langton.controllers.SettingsAntController;
 
 /**
  * @author Natalie Breu
- * @version 07_04_2019
+ * @version 22_04_2019
  * <p>
  * TODO: Update JavaDoc
  */
@@ -32,15 +32,16 @@ public class SettingsAntView {
     private SettingsAntController controller;
     private GridPane fieldsGridPane;
 
+    /**
+     * Creates all Items of the Scene
+     *
+     * @param settingsAntController
+     */
     public SettingsAntView(SettingsAntController settingsAntController) {
         this.controller = settingsAntController;
+        VBox content = new VBox();
         fieldsGridPane = new GridPane();
-        width = 400.0;
-        heigth = 400.0;
         stage = new Stage();
-
-        stage.setWidth(width);
-        stage.setHeight(heigth);
 
         comboBox = new ComboBox();
         GridPane colorsGridPane = new GridPane();
@@ -49,11 +50,13 @@ public class SettingsAntView {
         greenTextField = new TextField();
         blueTextField = new TextField();
 
+        //Titel
         Label titleLabel = new Label("Ant-Settings");
         titleLabel.getStyleClass().add("titelStyle");
-        titleLabel.setTextAlignment(TextAlignment.CENTER);
+        HBox header = new HBox(titleLabel);
+        header.setAlignment(Pos.CENTER);
 
-
+        // TextField for the amount of the RGB value of the ant
         Label redLabel = new Label("Red");
         redLabel.getStyleClass().add("textStyle");
         Label greenLabel = new Label("Green");
@@ -61,9 +64,9 @@ public class SettingsAntView {
         Label blueLabel = new Label("Blue");
         blueLabel.getStyleClass().add("textStyle");
 
+        //Subtitles
         Label settingsColorLabel = new Label("Color:");
         settingsColorLabel.getStyleClass().add("subtitleStyle");
-
         Label settingsDirectionLabel = new Label("Direction:");
         settingsDirectionLabel.getStyleClass().add("subtitleStyle");
 
@@ -79,55 +82,87 @@ public class SettingsAntView {
         //Abstand untereinander
         colorsGridPane.setVgap(10);
 
+        // Combobox to choose the directions of the ant
+        MenuItem menuItemUp = new MenuItem("Up");
+        MenuItem menuItemDown = new MenuItem("Down");
+        MenuItem menuItemLeft = new MenuItem("Left");
+        MenuItem menuItemRight = new MenuItem("Right");
+
+        //Squares to visualise the fields
         Label emptyField = new Label();
         emptyField.getStyleClass().add("label-border");
         emptyField.setMinSize(35.0, 35.0);
-        Label fullField = new Label();
-        fullField.getStyleClass().add("label-background");
-        fullField.setMinSize(35.0, 35.0);
-        Label uselessLabel2 = new Label("");
+        Label filledField = new Label();
+        filledField.getStyleClass().add("label-background");
+        filledField.setMinSize(35.0, 35.0);
 
+        //Put all Items into the Comboboxes
         ComboBox comboBoxEmptyFields = new ComboBox();
-        comboBoxEmptyFields.getItems().addAll("Up", "Down", "Left", "Right");
+        comboBoxEmptyFields.getItems().addAll(menuItemUp.getText(), menuItemDown.getText(), menuItemLeft.getText(), menuItemRight.getText());
+        comboBoxEmptyFields.setPromptText("Empty Fields");
+        ComboBox comboBoxFilledFields = new ComboBox();
+        comboBoxFilledFields.getItems().addAll("Up", "Down", "Left", "Right");
+        comboBoxFilledFields.setPromptText("Filled Fields");
 
-        ComboBox comboBoxFullFields = new ComboBox();
-        comboBoxFullFields.getItems().addAll("Up", "Down", "Left", "Right");
-
-        fieldsGridPane.addRow(0, emptyField, comboBoxEmptyFields);
-        fieldsGridPane.addRow(1, fullField, comboBoxFullFields);
-
-        fieldsGridPane.setHgap(60);
-        fieldsGridPane.setVgap(10);
-
+        //Button to save the settings
         Button buttonSaveSettingsField = new Button("Save");
         //Das zwüschet de {} isch Funktion, wo de Parameter (event) vorne mitgeh wird
         buttonSaveSettingsField.setOnAction(event -> {
             controller.handleSettingsAnt(event);
         });
+        HBox footer = new HBox(buttonSaveSettingsField);
+        footer.setAlignment(Pos.CENTER_RIGHT);
 
-        VBox root = new VBox(titleLabel);
+        // Stylesheets for the design
+        VBox root = new VBox();
         root.getStylesheets().add("/stylesheets/defaultStyles.css");
         root.getStylesheets().add("/stylesheets/settingsAntStyles.css");
         root.getStyleClass().add("backgroundcolor");
 
-        scene = new Scene(root);
-        root.getChildren().addAll(colorsGridPane, fieldsGridPane, buttonSaveSettingsField);
+        //Put the Items into the Gridpane
+        fieldsGridPane.addRow(0, emptyField, comboBoxEmptyFields);
+        fieldsGridPane.addRow(1, filledField, comboBoxFilledFields);
 
+        fieldsGridPane.setHgap(60);
+        fieldsGridPane.setVgap(10);
+
+        //Put the Gridpane into the final  VBox
+        scene = new Scene(root);
+        content.getChildren().addAll(header, colorsGridPane, fieldsGridPane, footer);
+        content.setPadding(new Insets(10));
+        root.getChildren().addAll(content);
+
+        // Put VBox into the final Scene
         stage.setScene(scene);
     }
 
+    /**
+     * Show Antsettings until User clicks SaveButton
+     */
     public void showAndWait() {
         stage.showAndWait();
     }
 
+    /**
+     * Getter of RedTextField
+     * @return
+     */
     public TextField getRedTextField() {
         return redTextField;
     }
 
+    /**
+     * Getter of green TextField
+     * @return
+     */
     public TextField getGreenTextField() {
         return greenTextField;
     }
 
+    /**
+     * Getter of blue TextField
+     * @return
+     */
     public TextField getBlueTextField() {
         return blueTextField;
     }
