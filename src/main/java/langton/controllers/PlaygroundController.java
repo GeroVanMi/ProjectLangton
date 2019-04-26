@@ -4,12 +4,10 @@ import langton.data.Algorithm;
 import langton.data.Ant;
 import langton.helpers.TickListener;
 import langton.views.Playground;
-import langton.views.SettingsAntView;
 
 /**
  * @author Gerome Wiss
- * @version 29_03_2019
- * <p>
+ * @version 24_04_2019
  * This class controls all changes that happen on the corresponding playground object.
  * It handles inputs from the user and changes the view according to the changes in the data.
  */

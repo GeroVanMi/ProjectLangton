@@ -1,4 +1,4 @@
-package langton.views.settings;
+package langton.views.antSettings;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

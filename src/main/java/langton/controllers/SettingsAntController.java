@@ -1,15 +1,13 @@
 package langton.controllers;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
 import langton.data.Settings;
-import langton.views.SettingsAntView;
-import langton.views.settings.ConfirmationBox;
-import langton.views.settings.SettingBox;
+import langton.views.antSettings.SettingsAntView;
+import langton.views.antSettings.SettingBox;
 
 /**
  * @author Natalie Breu
- * @version 22_04_2019
+ * @version 24_04_2019
  */
 public class SettingsAntController {
 
@@ -49,7 +47,6 @@ public class SettingsAntController {
                 displayConfirmationBox();
             }
         }
-
     }
 
     /**
@@ -68,13 +65,7 @@ public class SettingsAntController {
 
     }
 
+    public void handleOnCloseRequest() {
 
-   /* private void showAlert() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Test Connection");
-        alert.setHeaderText("Results:");
-        alert.setContentText("Connect to the database successfully!");
-
-        alert.showAndWait();
-    }*/
+    }
 }
