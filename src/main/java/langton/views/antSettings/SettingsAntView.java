@@ -17,9 +17,10 @@ import langton.controllers.SettingsAntController;
 
 /**
  * @author Natalie Breu
- * @version 24_04_2019
- * <p>
- * TODO: Update JavaDoc
+ * @version 26_04_2019
+ *
+ * This class is responsible for displaying the elements of the Settings Ant View, which is used to
+ * display a small popup window where the user can set different settings when creating a new ant.
  */
 
 public class SettingsAntView {
@@ -66,7 +67,7 @@ public class SettingsAntView {
     }
 
     /**
-     *
+     * Creates the title inside a header.
      */
     private void createHeader() {
         // Title
@@ -161,7 +162,7 @@ public class SettingsAntView {
     }
 
     /**
-     * Creates the Button at the bottom of the
+     * Creates the Buttons at the bottom of the View
      */
     private void createFooter() {
         //Button to save the settings

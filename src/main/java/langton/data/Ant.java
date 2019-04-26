@@ -5,7 +5,7 @@ import langton.helpers.Point;
 
 /**
  * @author Gerome Wiss
- * @version 29_03_2019
+ * @version 26_04_2019
  *
  * This class holds all information about a single ant on the field.
  * It provides methods to move the ant around and to change the direction it's facing.
@@ -28,37 +28,34 @@ public class Ant {
 
     /**
      * Changes the direction of the ant, based on the color of the Field.
-     * @param field The field that the ant stands on.
+     * @param field The field that the ant currently stands on.
      */
     public void changeDirection(Field field) {
         Color color = field.getColor();
         if(color.getRed() < 0.3 && color.getGreen() < 0.3 && color.getBlue() < 0.3) {
-            this.turnRight();
+            this.turn(90);
         } else {
-            this.turnLeft();
+            this.turn(-90);
         }
     }
 
     /**
-     *
+     * Turns the ant by a certain degree.
+     * @param degree The amount in degrees that the ant should be rotate with. This can be negative.
      */
-    private void turnRight() {
-        if(direction < 270) {
-            direction += 90;
-        } else {
-            direction = 0;
-        }
-    }
+    private void turn(int degree) {
+        /* Check to avoid degree numbers that aren't divisible by 90
+         * If ever any other map-mode (e.g. hexagons instead of squares) is implemented this check would have to be
+         * altered or removed as it only allows for 90 or 180 degree turns.
+         */
+        if (degree % 90 == 0) {
+            this.direction += degree;
+            if (this.direction < 0) {
+                this.direction += 360;
+            } else if (this.direction >= 360) {
+                this.direction -= 360;
+            }
 
-
-    /**
-     *
-     */
-    private void turnLeft() {
-        if(direction > 0) {
-            direction -= 90;
-        } else {
-            direction = 270;
         }
     }
 
