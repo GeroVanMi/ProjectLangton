@@ -28,7 +28,6 @@ public class SettingsAntView {
     private Stage stage;
     private TextField redTextField, greenTextField, blueTextField;
     private SettingsAntController controller;
-
     private VBox content;
 
     /**
@@ -159,6 +158,10 @@ public class SettingsAntView {
         fieldsGridPane.setVgap(10);
 
         this.content.getChildren().add(fieldsGridPane);
+    }
+
+    public void close() {
+        this.stage.close();
     }
 
     /**

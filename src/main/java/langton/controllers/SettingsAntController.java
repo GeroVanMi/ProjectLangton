@@ -1,25 +1,32 @@
 package langton.controllers;
 
 import javafx.event.ActionEvent;
+import javafx.scene.paint.Color;
+import langton.data.Algorithm;
 import langton.data.Settings;
 import langton.views.antSettings.SettingsAntView;
 import langton.views.antSettings.SettingBox;
 
 /**
  * @author Natalie Breu
- * @version 24_04_2019
+ * @version 27_04_2019
  */
 public class SettingsAntController {
 
     private SettingsAntView settingsAntView;
     private SettingBox settingBox;
     private Settings settings;
+    private Algorithm algorithm;
+    private int x, y;
 
     /**
-     * Created SettingsAntController
+     * Constructor for the SettingsAntController.
      */
-    public SettingsAntController() {
+    public SettingsAntController(Algorithm algorithm, int x, int y) {
+        this.algorithm = algorithm;
         settingsAntView = new SettingsAntView(this);
+        this.x = x;
+        this.y = y;
         settingsAntView.showAndWait();
     }
 
@@ -45,6 +52,10 @@ public class SettingsAntController {
 
             if (doubleRed > 255.0 || doubleGreen > 255.0 || doubleBlue > 255.0) {
                 displayConfirmationBox();
+            } else {
+                Color color = new Color(doubleRed / 255, doubleGreen / 255, doubleBlue / 255, 1);
+                this.algorithm.addAnt(this.x, this.y, 0, color);
+                settingsAntView.close();
             }
         }
     }
@@ -65,6 +76,9 @@ public class SettingsAntController {
 
     }
 
+    /**
+     *
+     */
     public void handleOnCloseRequest() {
 
     }

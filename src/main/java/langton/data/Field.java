@@ -12,24 +12,26 @@ import javafx.scene.paint.Color;
 public class Field {
 
     private Color color;
+    private boolean isFilled;
 
     /**
      * @param color
      */
-
     public Field(Color color) {
         this.color = color;
+        this.isFilled = false;
     }
 
     /**
      * This method is responsible for the change of the color of the field, when the ant touches it.
      */
-
-    public void swapColor() {
-        if (color.getRed() < 0.3 && color.getGreen() < 0.3 && color.getBlue() < 0.3) {
-            color = new Color(0.5, 0.5, 0.3, 1);
+    public void swapColor(Color color) {
+        if (isFilled) {
+            this.color = color;
+            this.isFilled = false;
         } else {
-            color = new Color(0.2, 0.2, 0.2, 1);
+            this.color = new Color(0.2, 0.2, 0.2, 1);
+            this.isFilled = true;
         }
     }
 

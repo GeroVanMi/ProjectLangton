@@ -1,5 +1,6 @@
 package langton.controllers;
 
+import javafx.scene.paint.Color;
 import langton.data.Algorithm;
 import langton.data.Ant;
 import langton.helpers.TickListener;
@@ -63,8 +64,7 @@ public class PlaygroundController extends ViewController implements TickListener
      *
      */
     public void handleCanvasClick(double x, double y) {
-        SettingsAntController settingsAntController = new SettingsAntController();
-        algorithm.addAnt((int) x, (int) y, 0);
+        SettingsAntController settingsAntController = new SettingsAntController(algorithm, (int) x, (int) y);
     }
 
     /**

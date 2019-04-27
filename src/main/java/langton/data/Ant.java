@@ -13,6 +13,8 @@ import langton.helpers.Point;
 public class Ant {
 
     private Point position, lastPosition;
+    private int turnDegreesOnEmpty, turnDegreesOnFilled;
+    private Color trailColor;
     private int direction;
 
     /**
@@ -20,10 +22,11 @@ public class Ant {
      * @param position The inital position of the ant.
      * @param direction The inital direction the ant is facing.
      */
-    public Ant(Point position, int direction) {
+    public Ant(Point position, int direction, Color color) {
         this.position = position;
         this.lastPosition = new Point(position.getX(), position.getY());
         this.direction = direction;
+        this.trailColor = color;
     }
 
     /**
@@ -55,7 +58,6 @@ public class Ant {
             } else if (this.direction >= 360) {
                 this.direction -= 360;
             }
-
         }
     }
 
@@ -110,5 +112,9 @@ public class Ant {
      */
     public int getDirection() {
         return direction;
+    }
+
+    public Color getTrailColor() {
+        return trailColor;
     }
 }
