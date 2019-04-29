@@ -2,6 +2,7 @@ package langton.data;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import langton.helpers.Point;
 import langton.helpers.TickListener;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * @author Gerome Wiss
- * @version 05_04_2019
+ * @version 26_04_2019
  *
  * This class manages all the data about the ants and the map.
  */
@@ -41,6 +42,7 @@ public class Algorithm {
     private void tick() {
         for(Ant ant : ants) {
             ant.move();
+            //System.out.println(map.getRowsCount() + " " + map.getColumnsCount());
             if(settings.useTorus()) {
                 int x = ant.getPosition().getX(), y = ant.getPosition().getY();
                 if(x > map.getRowsCount() - 1) {
@@ -60,7 +62,7 @@ public class Algorithm {
             }
 
             Field fieldAntAt = map.getFields()[ant.getPosition().getX()][ant.getPosition().getY()];
-            fieldAntAt.swapColor();
+            fieldAntAt.swapColor(ant.getTrailColor());
             ant.changeDirection(fieldAntAt);
         }
         for(TickListener tickListener : tickListeners) {
@@ -88,7 +90,7 @@ public class Algorithm {
      * Stops the timeline. Prevents the timeline from being executed again.
      * @see Timeline
      */
-    private void stop() {
+    public void stop() {
         timeline.stop();
     }
 
@@ -106,8 +108,8 @@ public class Algorithm {
      * @param y The starting y coordinate of the new ant.
      * @param direction The direction the ant is initially facing.
      */
-    public void addAnt(int x, int y, int direction) {
-        ants.add(new Ant(new Point(x, y), direction));
+    public void addAnt(int x, int y, int direction, Color color) {
+        ants.add(new Ant(new Point(x, y), direction, color));
     }
 
     /**

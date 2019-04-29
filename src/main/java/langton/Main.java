@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
 
 /**
  * @author Gerome Wiss
- * @version 05_04_2019
+ * @version 16_02_2019
  *
  * This class is called when a user starts the application. It acts as an initiator for many values.
  */
@@ -33,8 +33,12 @@ public class Main extends Application {
             PlaygroundController playgroundController =
                     new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);
 
-            // SettingsView for the window / primary stage
-            ScreensController screensController = new ScreensController(primaryStage, playgroundController);
+        // SettingsAntView for the window / primary stage
+        primaryStage.setScene(playgroundController.getPlayground().getScene());
+        primaryStage.setMaximized(true);
+        primaryStage.setOnCloseRequest(e -> System.exit(0));
+        // SettingsView for the window / primary stage
+        ScreensController screensController = new ScreensController(primaryStage, playgroundController);
 
             primaryStage.show();
 
