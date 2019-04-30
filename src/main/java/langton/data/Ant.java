@@ -5,7 +5,7 @@ import langton.helpers.Point;
 
 /**
  * @author Gerome Wiss
- * @version 26_04_2019
+ * @version 30_04_2019
  *
  * This class holds all information about a single ant on the field.
  * It provides methods to move the ant around and to change the direction it's facing.
@@ -13,7 +13,7 @@ import langton.helpers.Point;
 public class Ant {
 
     private Point position, lastPosition;
-    private int turnDegreesOnEmpty, turnDegreesOnFilled;
+    private int turnRuleEmpty, turnRuleFull;
     private Color trailColor;
     private int direction;
 
@@ -22,11 +22,13 @@ public class Ant {
      * @param position The inital position of the ant.
      * @param direction The inital direction the ant is facing.
      */
-    public Ant(Point position, int direction, Color color) {
+    public Ant(Point position, int direction, Color color, int turnRuleEmpty, int turnRuleFull) {
         this.position = position;
         this.lastPosition = new Point(position.getX(), position.getY());
         this.direction = direction;
         this.trailColor = color;
+        this.turnRuleEmpty = turnRuleEmpty;
+        this.turnRuleFull = turnRuleFull;
     }
 
     /**
@@ -34,11 +36,10 @@ public class Ant {
      * @param field The field that the ant currently stands on.
      */
     public void changeDirection(Field field) {
-        Color color = field.getColor();
-        if(color.getRed() < 0.3 && color.getGreen() < 0.3 && color.getBlue() < 0.3) {
-            this.turn(90);
+        if(field.isFilled()) {
+            this.turn(this.turnRuleFull);
         } else {
-            this.turn(-90);
+            this.turn(turnRuleEmpty);
         }
     }
 

@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @author Natalie Breu
- * @version 16_02_2019
+ * @version 30_02_2019
  * <p>
  *  This class is responsible for the changing of the field color.
  * TODO: Add JavaDoc
@@ -27,10 +27,10 @@ public class Field {
      */
     public void swapColor(Color color) {
         if (isFilled) {
-            this.color = color;
+            this.color = new Color(0.2, 0.2, 0.2, 1);
             this.isFilled = false;
         } else {
-            this.color = new Color(0.2, 0.2, 0.2, 1);
+            this.color = color;
             this.isFilled = true;
         }
     }
@@ -40,5 +40,9 @@ public class Field {
      */
     public Color getColor() {
         return color;
+    }
+
+    public boolean isFilled() {
+        return isFilled;
     }
 }

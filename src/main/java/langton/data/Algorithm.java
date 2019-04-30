@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * @author Gerome Wiss
- * @version 26_04_2019
+ * @version 30_04_2019
  *
  * This class manages all the data about the ants and the map.
  */
@@ -108,8 +108,8 @@ public class Algorithm {
      * @param y The starting y coordinate of the new ant.
      * @param direction The direction the ant is initially facing.
      */
-    public void addAnt(int x, int y, int direction, Color color) {
-        ants.add(new Ant(new Point(x, y), direction, color));
+    public void addAnt(int x, int y, int direction, Color color, int turnRuleEmpty, int turnRuleFull) {
+        ants.add(new Ant(new Point(x, y), direction, color, turnRuleEmpty, turnRuleFull));
     }
 
     /**

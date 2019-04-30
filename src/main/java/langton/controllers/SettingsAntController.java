@@ -9,7 +9,7 @@ import langton.views.antSettings.SettingBox;
 
 /**
  * @author Natalie Breu
- * @version 27_04_2019
+ * @version 30_04_2019
  */
 public class SettingsAntController {
 
@@ -54,7 +54,15 @@ public class SettingsAntController {
                 displayConfirmationBox();
             } else {
                 Color color = new Color(doubleRed / 255, doubleGreen / 255, doubleBlue / 255, 1);
-                this.algorithm.addAnt(this.x, this.y, 0, color);
+                this.algorithm.addAnt(
+                        this.x,
+                        this.y,
+                        0,
+                        color,
+                        settingsAntView.getRuleEmpty(),
+                        settingsAntView.getRuleFilled()
+                );
+
                 settingsAntView.close();
             }
         }
@@ -73,13 +81,6 @@ public class SettingsAntController {
      */
     public void handleDiscardButtonClick() {
         settingBox.close();
-
-    }
-
-    /**
-     *
-     */
-    public void handleOnCloseRequest() {
 
     }
 }

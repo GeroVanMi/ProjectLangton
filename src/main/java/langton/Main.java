@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
 
 /**
  * @author Gerome Wiss
- * @version 16_02_2019
+ * @version 30_02_2019
  *
  * This class is called when a user starts the application. It acts as an initiator for many values.
  */
@@ -28,7 +28,7 @@ public class Main extends Application {
 
             resizeListeners = new ArrayList<>();
             // Create Data Objects
-            Algorithm algorithm = new Algorithm(150, 150, 5, true, false);
+            Algorithm algorithm = new Algorithm(150, 150, 5, true, true);
 
             PlaygroundController playgroundController =
                     new PlaygroundController(primaryStage.getWidth(), primaryStage.getHeight(), algorithm);

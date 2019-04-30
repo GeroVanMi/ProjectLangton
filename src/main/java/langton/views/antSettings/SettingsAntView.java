@@ -17,7 +17,7 @@ import langton.controllers.SettingsAntController;
 
 /**
  * @author Natalie Breu
- * @version 26_04_2019
+ * @version 30_04_2019
  *
  * This class is responsible for displaying the elements of the Settings Ant View, which is used to
  * display a small popup window where the user can set different settings when creating a new ant.
@@ -29,6 +29,7 @@ public class SettingsAntView {
     private TextField redTextField, greenTextField, blueTextField;
     private SettingsAntController controller;
     private VBox content;
+    private ComboBox comboBoxEmptyFields, comboBoxFilledFields;
 
     /**
      * Creates all Items of the Scene
@@ -43,7 +44,6 @@ public class SettingsAntView {
 
         // Initialize the stage
         this.stage = new Stage();
-        this.stage.setOnCloseRequest(onExitEvent -> settingsAntController.handleOnCloseRequest());
 
         this.createHeader();
         this.createColorTextFields();
@@ -137,16 +137,16 @@ public class SettingsAntView {
         filledField.setMinSize(35.0, 35.0);
 
         ObservableList<String> moveOptions = FXCollections.observableArrayList(
-                        "Stay Straight",
-                        "Turn Left",
-                        "Turn Right",
-                        "Turn Around"
-                );
+                "Stay Straight",
+                "Turn Right",
+                "Turn Left",
+                "Turn Around"
+        );
 
-        ComboBox comboBoxEmptyFields = new ComboBox(moveOptions);
+        comboBoxEmptyFields = new ComboBox(moveOptions);
         comboBoxEmptyFields.setPromptText("Empty Fields");
 
-        ComboBox comboBoxFilledFields = new ComboBox(moveOptions);
+        comboBoxFilledFields = new ComboBox(moveOptions);
         comboBoxFilledFields.setPromptText("Filled Fields");
 
         GridPane fieldsGridPane = new GridPane();
@@ -190,6 +190,7 @@ public class SettingsAntView {
 
     /**
      * Getter of RedTextField
+     *
      * @return
      */
     public TextField getRedTextField() {
@@ -198,6 +199,7 @@ public class SettingsAntView {
 
     /**
      * Getter of green TextField
+     *
      * @return
      */
     public TextField getGreenTextField() {
@@ -206,9 +208,40 @@ public class SettingsAntView {
 
     /**
      * Getter of blue TextField
+     *
      * @return
      */
     public TextField getBlueTextField() {
         return blueTextField;
+    }
+
+    public int getRuleEmpty() {
+        switch (this.comboBoxEmptyFields.getSelectionModel().getSelectedIndex()) {
+            case 0:
+                return 0;
+            case 1:
+                return 90;
+            case 2:
+                return 270;
+            case 3:
+                return 180;
+            default:
+                return 90;
+        }
+    }
+
+    public int getRuleFilled() {
+        switch (this.comboBoxFilledFields.getSelectionModel().getSelectedIndex()) {
+            case 0:
+                return 0;
+            case 1:
+                return 90;
+            case 2:
+                return 270;
+            case 3:
+                return 180;
+            default:
+                return 270;
+        }
     }
 }
