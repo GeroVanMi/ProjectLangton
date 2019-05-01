@@ -47,17 +47,13 @@ public class Algorithm {
                 int x = ant.getPosition().getX(), y = ant.getPosition().getY();
                 if(x > map.getRowsCount() - 1) {
                     ant.getPosition().setX(x % map.getRowsCount());
-                    ant.getPosition().setY(y % map.getColumnsCount());
                 } else if(x < 0) {
                     ant.getPosition().setX(map.getRowsCount() - 1);
-                    ant.getPosition().setY(y % map.getColumnsCount());
                 }
                 if(y > (map.getColumnsCount() - 1)) {
                     ant.getPosition().setY(y % (map.getColumnsCount()));
-                    ant.getPosition().setX(x % map.getRowsCount());
                 } else if(y < 0) {
                     ant.getPosition().setY(map.getColumnsCount() - 1);
-                    ant.getPosition().setX(x % map.getRowsCount());
                 }
             }
 
