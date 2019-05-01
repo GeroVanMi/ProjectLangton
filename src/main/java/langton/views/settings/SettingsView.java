@@ -84,7 +84,7 @@ public class SettingsView {
         tickSlider = new Slider(1, 100, settings.getTicksPerSecond());
         tickSlider.setShowTickLabels(true);
 
-        Label tickSliderLabel = new Label("Ticks per Second");
+        Label tickSliderLabel = new Label("Moves per Second");
 
         contentPane.addRow(2, tickSlider, tickSliderLabel);
     }
