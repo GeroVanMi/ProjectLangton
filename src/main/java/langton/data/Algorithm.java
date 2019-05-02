@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * @author Gerome Wiss
- * @version 30_04_2019
+ * @version 01_05_2019
  *
  * This class manages all the data about the ants and the map.
  */
