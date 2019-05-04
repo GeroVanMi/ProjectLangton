@@ -9,7 +9,7 @@ import langton.views.antSettings.SettingBox;
 
 /**
  * @author Natalie Breu
- * @version 27_04_2019
+ * @version 04_05_2019
  */
 public class SettingsAntController {
 
@@ -36,27 +36,31 @@ public class SettingsAntController {
      * @param event
      */
     public void handleSettingsAnt(ActionEvent event) {
-        if (settingsAntView.getRedTextField().getText().isEmpty() ||
-                settingsAntView.getBlueTextField().getText().isEmpty() ||
-                settingsAntView.getGreenTextField().getText().isEmpty()) {
-            // Inform the user that one of the fields is empty
-            displayConfirmationBox();
-        } else {
-            String textRed = settingsAntView.getRedTextField().getText();
-            String textGreen = settingsAntView.getGreenTextField().getText();
-            String textBlue = settingsAntView.getBlueTextField().getText();
-
-            double doubleRed = Double.parseDouble(textRed);
-            double doubleGreen = Double.parseDouble(textGreen);
-            double doubleBlue = Double.parseDouble(textBlue);
-
-            if (doubleRed > 255.0 || doubleGreen > 255.0 || doubleBlue > 255.0) {
+        try {
+            if (settingsAntView.getRedTextField().getText().isEmpty() ||
+                    settingsAntView.getBlueTextField().getText().isEmpty() ||
+                    settingsAntView.getGreenTextField().getText().isEmpty()) {
+                // Inform the user that one of the fields is empty
                 displayConfirmationBox();
             } else {
-                Color color = new Color(doubleRed / 255, doubleGreen / 255, doubleBlue / 255, 1);
-                this.algorithm.addAnt(this.x, this.y, 0, color);
-                settingsAntView.close();
+                String textRed = settingsAntView.getRedTextField().getText();
+                String textGreen = settingsAntView.getGreenTextField().getText();
+                String textBlue = settingsAntView.getBlueTextField().getText();
+
+                double doubleRed = Double.parseDouble(textRed);
+                double doubleGreen = Double.parseDouble(textGreen);
+                double doubleBlue = Double.parseDouble(textBlue);
+
+                if (doubleRed > 255.0 || doubleGreen > 255.0 || doubleBlue > 255.0) {
+                    displayConfirmationBox();
+                } else {
+                    Color color = new Color(doubleRed / 255, doubleGreen / 255, doubleBlue / 255, 1);
+                    this.algorithm.addAnt(this.x, this.y, 0, color);
+                    settingsAntView.close();
+                }
             }
+        } catch (NumberFormatException nfe) {
+            this.displayConfirmationBox();
         }
     }
 

@@ -19,6 +19,7 @@ public class SettingBox
 {
     private Stage stage;
     private SettingsAntController controller;
+    private String text;
 
     public SettingBox(SettingsAntController controller) {
         stage = new Stage();
@@ -56,4 +57,5 @@ public class SettingBox
     public void close() {
         stage.close();
     }
+
 }
