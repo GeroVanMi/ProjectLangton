@@ -17,7 +17,7 @@ import langton.controllers.SettingsAntController;
 
 /**
  * @author Natalie Breu
- * @version 30_04_2019
+ * @version 06_05_2019
  *
  * This class is responsible for displaying the elements of the Settings Ant View, which is used to
  * display a small popup window where the user can set different settings when creating a new ant.
@@ -185,6 +185,7 @@ public class SettingsAntView {
      * Show the View and block all other views from being interacted with.
      */
     public void showAndWait() {
+        stage.setAlwaysOnTop(true);
         stage.showAndWait();
     }
 
@@ -243,5 +244,9 @@ public class SettingsAntView {
             default:
                 return 270;
         }
+    }
+
+    public boolean isShowing() {
+        return stage.isShowing();
     }
 }

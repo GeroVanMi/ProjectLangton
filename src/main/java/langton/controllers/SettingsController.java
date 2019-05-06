@@ -8,7 +8,7 @@ import langton.views.settings.SettingsView;
 
 /**
  * @author Gerome Wiss
- * @version 30_03_2019
+ * @version 06_05_2019
  */
 public class SettingsController {
 
@@ -110,7 +110,6 @@ public class SettingsController {
      *
      */
     private void applyChanges() {
-        settings.setUseTorus(useTorus());
         settings.setRenderAnts(renderAnts());
         settings.setTicksPerSecond(view.getTickSlider().getValue());
     }
@@ -120,9 +119,7 @@ public class SettingsController {
      */
     private boolean hasUnsavedChanges() {
         boolean hasUnsavedChanges = false;
-        if (settings.useTorus() != useTorus()) {
-            hasUnsavedChanges = true;
-        } else if (settings.renderAnts() != renderAnts()) {
+        if (settings.renderAnts() != renderAnts()) {
             hasUnsavedChanges = true;
         } else if (settings.getTicksPerSecond() != view.getTickSlider().getValue()) {
             hasUnsavedChanges = true;

@@ -15,7 +15,7 @@ import langton.data.Settings;
 
 /**
  * @author Gerome Wiss
- * @version 05_04_2019
+ * @version 06_05_2019
  *
  * The SettingsView class is used to give the user an interface to change the settings of the algorithm.
  */
@@ -60,14 +60,6 @@ public class SettingsView {
      * Creates the checkboxes that are used for true/false inputs.
      */
     private void createCheckBoxes() {
-        // Checkbox to ask the user, whether he wants to use a torus as the map.
-        torusCheckBox = new CheckBox();
-        if(settings.useTorus()) {
-            torusCheckBox.setSelected(true);
-        }
-        Label torusLabel = new Label("Use Torus");
-        contentPane.addRow(0, torusCheckBox, torusLabel);
-
         // Checkbox for drawing ant or not
         antRenderingCheckBox = new CheckBox();
         if(settings.renderAnts()) {

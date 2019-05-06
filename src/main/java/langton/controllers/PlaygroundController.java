@@ -9,7 +9,7 @@ import langton.views.Playground;
 
 /**
  * @author Gerome Wiss
- * @version 24_04_2019
+ * @version 06_05_2019
  * This class controls all changes that happen on the corresponding playground object.
  * It handles inputs from the user and changes the view according to the changes in the data.
  */
@@ -17,6 +17,7 @@ public class PlaygroundController extends ViewController implements TickListener
     private Playground playground;
     private Algorithm algorithm;
     private SettingsController settingsController;
+    private SettingsAntController settingsAntController;
 
     /**
      * This constructor creates a Map and initialises the values needed for the playground.
@@ -30,6 +31,9 @@ public class PlaygroundController extends ViewController implements TickListener
         this.algorithm = algorithm;
         algorithm.addTickListener(this);
         this.updateFullPlayground();
+
+        this.settingsAntController = new SettingsAntController(algorithm);
+        this.settingsController = new SettingsController(algorithm.getSettings());
     }
 
     /**
@@ -66,7 +70,10 @@ public class PlaygroundController extends ViewController implements TickListener
      *
      */
     public void handleCanvasClick(double x, double y) {
-        SettingsAntController settingsAntController = new SettingsAntController(algorithm, (int) x, (int) y);
+        if(!settingsController.isShowing()) {
+            this.settingsAntController.setCoordinates((int)x, (int)y);
+            this.settingsAntController.showAndWait();
+        }
     }
 
     public void handlePauseButtonClick() {
@@ -81,10 +88,7 @@ public class PlaygroundController extends ViewController implements TickListener
      *
      */
     public void handleButtonSettingsClick(ActionEvent event) {
-        if(settingsController == null) {
-            settingsController = new SettingsController(algorithm.getSettings());
-        }
-        if(!settingsController.isShowing()) {
+        if(!settingsController.isShowing() && !settingsAntController.isShowing()) {
             algorithm.pause();
             settingsController.showAndWait();
             algorithm.play();

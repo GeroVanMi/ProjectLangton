@@ -2,33 +2,23 @@ package langton.data;
 
 /**
  * @author Gerome Wiss
- * @version 05_04_2019
+ * @version 06_05_2019
  *
  * TODO: Update JavaDoc
  */
 public class Settings {
-    private boolean useTorus, renderAnts;
+    private boolean renderAnts;
     private double ticksPerSecond;
     private Algorithm algorithm;
 
     /**
      *
-     * @param useTorus
      * @param renderAnts
      */
-    public Settings(boolean useTorus, boolean renderAnts, double ticksPerSecond, Algorithm algorithm) {
-        this.useTorus = useTorus;
+    public Settings(boolean renderAnts, double ticksPerSecond, Algorithm algorithm) {
         this.renderAnts = renderAnts;
         this.ticksPerSecond = ticksPerSecond;
         this.algorithm = algorithm;
-    }
-
-    /**
-     *
-     * @param useTorus
-     */
-    public void setUseTorus(boolean useTorus) {
-        this.useTorus = useTorus;
     }
 
     /**
@@ -37,14 +27,6 @@ public class Settings {
      */
     public void setRenderAnts(boolean renderAnts) {
         this.renderAnts = renderAnts;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public boolean useTorus() {
-        return useTorus;
     }
 
     /**
